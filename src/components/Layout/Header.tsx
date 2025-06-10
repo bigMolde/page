@@ -22,6 +22,42 @@ const Header: React.FC = () => {
       <div className="header-container">
         {/* Top bar */}
         <div className="header-top">
+          {/* Left Navigation - 按分类搜索 */}
+          <nav className="nav">
+            <ul className="nav-list">
+              <li>
+                <Link to="/r/figures" className="nav-link">
+                  手办
+                </Link>
+              </li>
+              <li>
+                <Link to="/r/apparel" className="nav-link">
+                  服装
+                </Link>
+              </li>
+              <li>
+                <Link to="/r/stationery" className="nav-link">
+                  文具杂货
+                </Link>
+              </li>
+              <li>
+                <Link to="/r/games" className="nav-link">
+                  游戏玩具
+                </Link>
+              </li>
+              <li>
+                <Link to="/r/books" className="nav-link">
+                  漫画书籍
+                </Link>
+              </li>
+              <li>
+                <Link to="/r/accessories" className="nav-link">
+                  配饰
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
           {/* Logo - 首页 */}
           <Link to="/" className="logo">
             <div className="logo-icon">
@@ -60,6 +96,7 @@ const Header: React.FC = () => {
               onClick={() => navigate('/search')}
             >
               <Search size={20} />
+              <span>搜索</span>
             </button>
 
             {/* Cart - 购物车 */}
@@ -68,6 +105,7 @@ const Header: React.FC = () => {
               className="header-icon-button"
             >
               <ShoppingCart size={20} />
+              <span>购物车</span>
               {getTotalItems() > 0 && (
                 <span className="cart-badge">
                   {getTotalItems()}
@@ -82,6 +120,7 @@ const Header: React.FC = () => {
               title="登录"
             >
               <User size={20} />
+              <span>登录</span>
             </Link>
 
             {/* Mobile menu button */}
@@ -93,42 +132,6 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
-
-        {/* Navigation - Desktop - 分类商品列表 */}
-        <nav className="nav">
-          <ul className="nav-list">
-            <li>
-              <Link to="/r/figures" className="nav-link">
-                手办
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/apparel" className="nav-link">
-                服装
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/stationery" className="nav-link">
-                文具杂货
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/games" className="nav-link">
-                游戏玩具
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/books" className="nav-link">
-                漫画书籍
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/accessories" className="nav-link">
-                配饰
-              </Link>
-            </li>
-          </ul>
-        </nav>
 
         {/* Mobile menu - 分类商品列表 */}
         {isMenuOpen && (
