@@ -22,7 +22,7 @@ const Header: React.FC = () => {
       <div className="header-container">
         {/* Top bar */}
         <div className="header-top">
-          {/* Logo */}
+          {/* Logo - 首页 */}
           <Link to="/" className="logo">
             <div className="logo-icon">
               <span>J</span>
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-          {/* Search bar - hidden on mobile */}
+          {/* Search bar - 关键词搜索 */}
           <form onSubmit={handleSearch} className="search-form">
             <div className="search-container">
               <input
@@ -54,7 +54,7 @@ const Header: React.FC = () => {
 
           {/* Right side icons */}
           <div className="header-actions">
-            {/* Mobile search button */}
+            {/* Mobile search button - 关键词搜索 */}
             <button 
               className="header-icon-button md:hidden"
               onClick={() => navigate('/search')}
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
               <Search size={20} />
             </button>
 
-            {/* Cart */}
+            {/* Cart - 购物车 */}
             <Link 
               to="/cart" 
               className="header-icon-button"
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
               )}
             </Link>
 
-            {/* User menu */}
+            {/* User menu - 登录 */}
             <Link 
               to="/login" 
               className="header-icon-button"
@@ -94,10 +94,9 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Navigation - Desktop */}
+        {/* Navigation - Desktop - 分类商品列表 */}
         <nav className="nav">
           <ul className="nav-list">
-            {/* Category Navigation */}
             <li>
               <Link to="/r/figures" className="nav-link">
                 手办
@@ -128,33 +127,13 @@ const Header: React.FC = () => {
                 配饰
               </Link>
             </li>
-            
-            <li className="nav-divider"></li>
-            
-            {/* Series Navigation */}
-            <li>
-              <Link to="/r/ONE PIECE" className="nav-link nav-series">
-                ONE PIECE
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/鬼灭之刃" className="nav-link nav-series">
-                鬼灭之刃
-              </Link>
-            </li>
-            <li>
-              <Link to="/r/咒术回战" className="nav-link nav-series">
-                咒术回战
-              </Link>
-            </li>
           </ul>
         </nav>
 
-        {/* Mobile menu */}
+        {/* Mobile menu - 分类商品列表 */}
         {isMenuOpen && (
           <div className="mobile-menu">
             <div className="mobile-menu-content">
-              {/* Categories */}
               <div className="mobile-menu-section">商品分类</div>
               <Link 
                 to="/r/figures" 
@@ -197,32 +176,6 @@ const Header: React.FC = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 配饰
-              </Link>
-              
-              <div className="mobile-menu-divider"></div>
-              
-              {/* Series */}
-              <div className="mobile-menu-section">热门作品</div>
-              <Link 
-                to="/r/ONE PIECE" 
-                className="mobile-menu-link mobile-menu-series"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                ONE PIECE
-              </Link>
-              <Link 
-                to="/r/鬼灭之刃" 
-                className="mobile-menu-link mobile-menu-series"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                鬼灭之刃
-              </Link>
-              <Link 
-                to="/r/咒术回战" 
-                className="mobile-menu-link mobile-menu-series"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                咒术回战
               </Link>
             </div>
           </div>
