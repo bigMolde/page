@@ -29,7 +29,7 @@ const Header: React.FC = () => {
             </div>
             <div className="logo-text">
               <div className="logo-title">Jump Comics</div>
-              <div className="logo-subtitle">Official Store</div>
+              <div className="logo-subtitle">官方商城</div>
             </div>
           </Link>
 
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
             <div className="search-container">
               <input
                 type="text"
-                placeholder="商品・作品名で検索..."
+                placeholder="搜索商品、作品名..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-input"
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
             <Link 
               to="/login" 
               className="header-icon-button"
-              title="ログイン"
+              title="登录"
             >
               <User size={20} />
             </Link>
@@ -100,32 +100,32 @@ const Header: React.FC = () => {
             {/* Category Navigation */}
             <li>
               <Link to="/r/figures" className="nav-link">
-                フィギュア
+                手办
               </Link>
             </li>
             <li>
               <Link to="/r/apparel" className="nav-link">
-                アパレル
+                服装
               </Link>
             </li>
             <li>
               <Link to="/r/stationery" className="nav-link">
-                文具・雑貨
+                文具杂货
               </Link>
             </li>
             <li>
               <Link to="/r/games" className="nav-link">
-                ゲーム・玩具
+                游戏玩具
               </Link>
             </li>
             <li>
               <Link to="/r/books" className="nav-link">
-                コミック・書籍
+                漫画书籍
               </Link>
             </li>
             <li>
               <Link to="/r/accessories" className="nav-link">
-                アクセサリー
+                配饰
               </Link>
             </li>
             
@@ -138,13 +138,13 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link to="/r/鬼滅の刃" className="nav-link nav-series">
-                鬼滅の刃
+              <Link to="/r/鬼灭之刃" className="nav-link nav-series">
+                鬼灭之刃
               </Link>
             </li>
             <li>
-              <Link to="/r/呪術廻戦" className="nav-link nav-series">
-                呪術廻戦
+              <Link to="/r/咒术回战" className="nav-link nav-series">
+                咒术回战
               </Link>
             </li>
           </ul>
@@ -155,54 +155,54 @@ const Header: React.FC = () => {
           <div className="mobile-menu">
             <div className="mobile-menu-content">
               {/* Categories */}
-              <div className="mobile-menu-section">カテゴリ</div>
+              <div className="mobile-menu-section">商品分类</div>
               <Link 
                 to="/r/figures" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                フィギュア
+                手办
               </Link>
               <Link 
                 to="/r/apparel" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                アパレル
+                服装
               </Link>
               <Link 
                 to="/r/stationery" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                文具・雑貨
+                文具杂货
               </Link>
               <Link 
                 to="/r/games" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                ゲーム・玩具
+                游戏玩具
               </Link>
               <Link 
                 to="/r/books" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                コミック・書籍
+                漫画书籍
               </Link>
               <Link 
                 to="/r/accessories" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                アクセサリー
+                配饰
               </Link>
               
               <div className="mobile-menu-divider"></div>
               
               {/* Series */}
-              <div className="mobile-menu-section">人気作品</div>
+              <div className="mobile-menu-section">热门作品</div>
               <Link 
                 to="/r/ONE PIECE" 
                 className="mobile-menu-link mobile-menu-series"
@@ -211,18 +211,18 @@ const Header: React.FC = () => {
                 ONE PIECE
               </Link>
               <Link 
-                to="/r/鬼滅の刃" 
+                to="/r/鬼灭之刃" 
                 className="mobile-menu-link mobile-menu-series"
                 onClick={() => setIsMenuOpen(false)}
               >
-                鬼滅の刃
+                鬼灭之刃
               </Link>
               <Link 
-                to="/r/呪術廻戦" 
+                to="/r/咒术回战" 
                 className="mobile-menu-link mobile-menu-series"
                 onClick={() => setIsMenuOpen(false)}
               >
-                呪術廻戦
+                咒术回战
               </Link>
             </div>
           </div>

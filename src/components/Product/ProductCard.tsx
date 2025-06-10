@@ -38,19 +38,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
         return (
           <div className="product-status-badge status-preorder">
             <Clock size={12} />
-            予約受付中
+            预约中
           </div>
         );
       case 'coming':
         return (
           <div className="product-status-badge status-coming">
-            発売予定
+            即将发售
           </div>
         );
       case 'soldout':
         return (
           <div className="product-status-badge status-soldout">
-            売り切れ
+            售罄
           </div>
         );
       default:
@@ -92,12 +92,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
           )}
           {product.is_made_to_order && (
             <span className="attribute-badge attribute-made-to-order">
-              受注生産
+              定制
             </span>
           )}
           {product.is_lottery && (
             <span className="attribute-badge attribute-lottery">
-              抽選
+              抽选
             </span>
           )}
         </div>
@@ -109,7 +109,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
             className={`action-button favorite-button ${
               isFavorite('product', product.id) ? 'active' : ''
             }`}
-            title="お気に入り"
+            title="收藏"
           >
             <Heart size={16} fill={isFavorite('product', product.id) ? 'currentColor' : 'none'} />
           </button>
@@ -118,7 +118,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
             <button
               onClick={handleAddToCart}
               className="action-button cart-button"
-              title={isPreorder ? 'カートに追加（予約）' : 'カートに追加'}
+              title={isPreorder ? '加入购物车（预约）' : '加入购物车'}
             >
               {isPreorder ? <Package size={16} /> : <ShoppingCart size={16} />}
             </button>
@@ -190,16 +190,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
         <div className="product-stock">
           {product.status === 'preorder' ? (
             <span className="stock-preorder">
-              予約受付中 {product.order_end_date && `（〜${product.order_end_date}）`}
+              预约中 {product.order_end_date && `（至${product.order_end_date}）`}
             </span>
           ) : product.status === 'coming' ? (
             <span className="stock-coming">
-              発売予定 {product.release_date && `（${product.release_date}）`}
+              即将发售 {product.release_date && `（${product.release_date}）`}
             </span>
           ) : product.stock_quantity > 0 ? (
-            <span className="stock-available">在庫あり</span>
+            <span className="stock-available">有库存</span>
           ) : (
-            <span className="stock-out">売り切れ</span>
+            <span className="stock-out">售罄</span>
           )}
         </div>
       </div>

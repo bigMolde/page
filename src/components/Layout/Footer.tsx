@@ -15,12 +15,12 @@ const Footer: React.FC = () => {
               </div>
               <div>
                 <div className="text-xl font-bold">Jump Comics</div>
-                <div className="text-sm opacity-75">Official Store</div>
+                <div className="text-sm opacity-75">官方商城</div>
               </div>
             </div>
             <p className="text-gray-400 mb-4">
-              集英社公式のJump Comics商品専門オンラインストア。
-              人気作品の公式グッズを豊富に取り揃えています。
+              集英社官方的Jump Comics商品专门在线商城。
+              人气作品的官方商品应有尽有。
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">
@@ -37,36 +37,36 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">商品カテゴリ</h3>
+            <h3 className="text-lg font-semibold mb-4">商品分类</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/r/figures" className="text-gray-400 hover:text-white transition-colors">
-                  フィギュア
+                  手办
                 </Link>
               </li>
               <li>
                 <Link to="/r/apparel" className="text-gray-400 hover:text-white transition-colors">
-                  アパレル
+                  服装
                 </Link>
               </li>
               <li>
                 <Link to="/r/stationery" className="text-gray-400 hover:text-white transition-colors">
-                  文具・雑貨
+                  文具杂货
                 </Link>
               </li>
               <li>
                 <Link to="/r/games" className="text-gray-400 hover:text-white transition-colors">
-                  ゲーム・玩具
+                  游戏玩具
                 </Link>
               </li>
               <li>
                 <Link to="/r/books" className="text-gray-400 hover:text-white transition-colors">
-                  コミック・書籍
+                  漫画书籍
                 </Link>
               </li>
               <li>
                 <Link to="/r/accessories" className="text-gray-400 hover:text-white transition-colors">
-                  アクセサリー
+                  配饰
                 </Link>
               </li>
             </ul>
@@ -74,36 +74,36 @@ const Footer: React.FC = () => {
 
           {/* Customer Service */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">サポート</h3>
+            <h3 className="text-lg font-semibold mb-4">客户服务</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  ヘルプ・よくある質問
+                  帮助·常见问题
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  返品・交換について
+                  退换货说明
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  配送について
+                  配送说明
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  お支払い方法
+                  支付方式
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  お問い合わせ
+                  联系我们
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  集英社IDについて
+                  关于集英社ID
                 </a>
               </li>
             </ul>
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">お問い合わせ</h3>
+            <h3 className="text-lg font-semibold mb-4">联系我们</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone size={16} className="text-red-400" />
@@ -125,14 +125,14 @@ const Footer: React.FC = () => {
                 <MapPin size={16} className="text-red-400 mt-1" />
                 <span className="text-gray-400">
                   〒101-8050<br />
-                  東京都千代田区一ツ橋2-5-10<br />
-                  集英社ビル
+                  东京都千代田区一桥2-5-10<br />
+                  集英社大厦
                 </span>
               </div>
             </div>
             <div className="mt-4 text-sm text-gray-500">
-              <p>営業時間: 平日 10:00-18:00</p>
-              <p>（土日祝日・年末年始を除く）</p>
+              <p>营业时间: 工作日 10:00-18:00</p>
+              <p>（周末节假日及年末年初除外）</p>
             </div>
           </div>
         </div>
@@ -144,13 +144,13 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                プライバシーポリシー
+                隐私政策
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                利用規約
+                使用条款
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                特定商取引法に基づく表記
+                特定商业交易法标记
               </a>
             </div>
           </div>
