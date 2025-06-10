@@ -18,34 +18,34 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-red-600 text-white shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto px-4">
+    <header className="header">
+      <div className="header-container">
         {/* Top bar */}
-        <div className="flex items-center justify-between h-16">
+        <div className="header-top">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-              <span className="text-red-600 font-bold text-xl">J</span>
+          <Link to="/" className="logo">
+            <div className="logo-icon">
+              <span>J</span>
             </div>
-            <div className="hidden sm:block">
-              <div className="text-xl font-bold">Jump Comics</div>
-              <div className="text-xs opacity-90">Official Store</div>
+            <div className="logo-text">
+              <div className="logo-title">Jump Comics</div>
+              <div className="logo-subtitle">Official Store</div>
             </div>
           </Link>
 
           {/* Search bar - hidden on mobile */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xl mx-8">
-            <div className="relative w-full">
+          <form onSubmit={handleSearch} className="search-form">
+            <div className="search-container">
               <input
                 type="text"
                 placeholder="商品・作品名で検索..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-4 pr-12 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-300"
+                className="search-input"
               />
               <button
                 type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-red-600 hover:text-red-700"
+                className="search-button"
               >
                 <Search size={20} />
               </button>
@@ -53,10 +53,10 @@ const Header: React.FC = () => {
           </form>
 
           {/* Right side icons */}
-          <div className="flex items-center space-x-4">
+          <div className="header-actions">
             {/* Mobile search button */}
             <button 
-              className="md:hidden p-2 hover:bg-red-700 rounded-full transition-colors"
+              className="header-icon-button md:hidden"
               onClick={() => navigate('/search')}
             >
               <Search size={20} />
@@ -65,11 +65,11 @@ const Header: React.FC = () => {
             {/* Cart */}
             <Link 
               to="/cart" 
-              className="relative p-2 hover:bg-red-700 rounded-full transition-colors"
+              className="header-icon-button"
             >
               <ShoppingCart size={20} />
               {getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-yellow-400 text-red-600 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="cart-badge">
                   {getTotalItems()}
                 </span>
               )}
@@ -78,7 +78,7 @@ const Header: React.FC = () => {
             {/* User menu */}
             <Link 
               to="/login" 
-              className="p-2 hover:bg-red-700 rounded-full transition-colors"
+              className="header-icon-button"
               title="ログイン"
             >
               <User size={20} />
@@ -86,7 +86,7 @@ const Header: React.FC = () => {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 hover:bg-red-700 rounded-full transition-colors"
+              className="mobile-menu-button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -95,113 +95,131 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation - Desktop */}
-        <nav className="hidden md:flex border-t border-red-500 py-2">
-          <div className="flex space-x-8">
+        <nav className="nav">
+          <ul className="nav-list">
             {/* Category Navigation */}
-            <Link to="/r/figures" className="py-2 hover:text-red-200 transition-colors">
-              フィギュア
-            </Link>
-            <Link to="/r/apparel" className="py-2 hover:text-red-200 transition-colors">
-              アパレル
-            </Link>
-            <Link to="/r/stationery" className="py-2 hover:text-red-200 transition-colors">
-              文具・雑貨
-            </Link>
-            <Link to="/r/games" className="py-2 hover:text-red-200 transition-colors">
-              ゲーム・玩具
-            </Link>
-            <Link to="/r/books" className="py-2 hover:text-red-200 transition-colors">
-              コミック・書籍
-            </Link>
-            <Link to="/r/accessories" className="py-2 hover:text-red-200 transition-colors">
-              アクセサリー
-            </Link>
+            <li>
+              <Link to="/r/figures" className="nav-link">
+                フィギュア
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/apparel" className="nav-link">
+                アパレル
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/stationery" className="nav-link">
+                文具・雑貨
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/games" className="nav-link">
+                ゲーム・玩具
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/books" className="nav-link">
+                コミック・書籍
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/accessories" className="nav-link">
+                アクセサリー
+              </Link>
+            </li>
             
-            <div className="border-l border-red-500 mx-4"></div>
+            <li className="nav-divider"></li>
             
             {/* Series Navigation */}
-            <Link to="/r/ONE PIECE" className="py-2 hover:text-red-200 transition-colors font-medium">
-              ONE PIECE
-            </Link>
-            <Link to="/r/鬼滅の刃" className="py-2 hover:text-red-200 transition-colors font-medium">
-              鬼滅の刃
-            </Link>
-            <Link to="/r/呪術廻戦" className="py-2 hover:text-red-200 transition-colors font-medium">
-              呪術廻戦
-            </Link>
-          </div>
+            <li>
+              <Link to="/r/ONE PIECE" className="nav-link nav-series">
+                ONE PIECE
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/鬼滅の刃" className="nav-link nav-series">
+                鬼滅の刃
+              </Link>
+            </li>
+            <li>
+              <Link to="/r/呪術廻戦" className="nav-link nav-series">
+                呪術廻戦
+              </Link>
+            </li>
+          </ul>
         </nav>
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-red-500 py-4">
-            <div className="flex flex-col space-y-3">
+          <div className="mobile-menu">
+            <div className="mobile-menu-content">
               {/* Categories */}
-              <div className="text-sm font-semibold text-red-200 mb-2">カテゴリ</div>
+              <div className="mobile-menu-section">カテゴリ</div>
               <Link 
                 to="/r/figures" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors"
+                className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 フィギュア
               </Link>
               <Link 
                 to="/r/apparel" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors"
+                className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 アパレル
               </Link>
               <Link 
                 to="/r/stationery" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors"
+                className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 文具・雑貨
               </Link>
               <Link 
                 to="/r/games" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors"
+                className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 ゲーム・玩具
               </Link>
               <Link 
                 to="/r/books" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors"
+                className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 コミック・書籍
               </Link>
               <Link 
                 to="/r/accessories" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors"
+                className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 アクセサリー
               </Link>
               
-              <div className="border-t border-red-500 my-2"></div>
+              <div className="mobile-menu-divider"></div>
               
               {/* Series */}
-              <div className="text-sm font-semibold text-red-200 mb-2">人気作品</div>
+              <div className="mobile-menu-section">人気作品</div>
               <Link 
                 to="/r/ONE PIECE" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors font-medium"
+                className="mobile-menu-link mobile-menu-series"
                 onClick={() => setIsMenuOpen(false)}
               >
                 ONE PIECE
               </Link>
               <Link 
                 to="/r/鬼滅の刃" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors font-medium"
+                className="mobile-menu-link mobile-menu-series"
                 onClick={() => setIsMenuOpen(false)}
               >
                 鬼滅の刃
               </Link>
               <Link 
                 to="/r/呪術廻戦" 
-                className="py-2 pl-4 hover:text-red-200 transition-colors font-medium"
+                className="mobile-menu-link mobile-menu-series"
                 onClick={() => setIsMenuOpen(false)}
               >
                 呪術廻戦
