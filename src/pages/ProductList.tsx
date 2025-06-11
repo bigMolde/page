@@ -492,7 +492,7 @@ const ProductList: React.FC = () => {
                       <div key={kana}>
                         <button
                           onClick={() => toggleKanaRow(kana)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded"
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
                         >
                           <span className="text-xs font-medium text-left">{kana}</span>
                           {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
@@ -534,7 +534,7 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 - 删除倒角 */}
+                {/* 分类过滤 - 完全删除倒角 */}
                 <div>
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">类别</h3>
                   <div className="space-y-1">
@@ -544,7 +544,8 @@ const ProductList: React.FC = () => {
                           onClick={() => toggleSection(cat.title)}
                           className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
                           style={{
-                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent'
+                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent',
+                            borderRadius: '0px'
                           }}
                         >
                           <span className="text-xs font-medium text-left text-black">{cat.title}</span>
