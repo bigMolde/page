@@ -121,8 +121,8 @@ const Categories: React.FC = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* 页面标题 - 调整行距为1.25 */}
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-10" style={{ lineHeight: '6.5' }}>
+        {/* 页面标题 - 调整行距为1.25，左对齐 */}
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-10 text-left" style={{ lineHeight: '1.25' }}>
           商品类别一览
         </h1>
 
@@ -131,12 +131,12 @@ const Categories: React.FC = () => {
           {categoryData.map(({ title, items }) => (
             <div
               key={title}
-              className="flex flex-col items-center text-center rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
+              className="flex flex-col rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
               style={{ backgroundColor: '#ffffff' }}
             >
-              {/* 一级标题：调整行距为1.25 */}
+              {/* 一级标题：左对齐 */}
               <h2 
-                className="font-semibold text-lg px-8 py-4"
+                className="font-semibold text-lg px-6 py-4 text-left"
                 style={{ 
                   backgroundColor: '#F6DFDE', 
                   color: '#374151',
@@ -146,13 +146,13 @@ const Categories: React.FC = () => {
                 {title}
               </h2>
 
-              {/* 二级列表：调整行距为1.25 */}
-              <ul className="px-6 py-4 text-sm text-gray-800" style={{ listStyle: 'none', lineHeight: '2.5' }}>
+              {/* 二级列表：左对齐 */}
+              <ul className="px-6 py-4 text-sm text-gray-800" style={{ listStyle: 'none', lineHeight: '1.25' }}>
                 {items.map(item => (
                   <li key={item} className="mb-3">
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="block px-2 py-1 rounded transition-colors"
+                      className="block px-2 py-1 rounded transition-colors text-left"
                       style={{
                         color: '#374151'
                       }}
