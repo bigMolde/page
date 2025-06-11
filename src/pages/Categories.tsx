@@ -146,7 +146,7 @@ const Categories: React.FC = () => {
               </h2>
 
               {/* 二级列表：无圆点，增大行距，居中 */}
-              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800">
+              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800 rounded-lg">
                 {items.map(item => (
                   <li key={item}>
                     <Link
