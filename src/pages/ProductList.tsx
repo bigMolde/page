@@ -456,7 +456,7 @@ const ProductList: React.FC = () => {
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
-                          <div className="ml-3 mt-1 space-y-2">
+                          <div className="ml-3 mt-1 space-y-3">
                             {cat.items.map((item, index) => (
                               <label
                                 key={index}
