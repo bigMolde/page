@@ -128,7 +128,7 @@ const Header: React.FC = () => {
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                分类商品列表
+                按类别搜索
               </Link>
               <Link 
                 to="/search" 
