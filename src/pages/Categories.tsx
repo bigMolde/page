@@ -159,7 +159,7 @@ const Categories: React.FC = () => {
         <div className="mt-16 text-center">
           <div className="bg-white rounded-lg shadow-sm ring-1 ring-gray-100 p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              找不到您想要的商品1？
+              找不到您想要的商品？
             </h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
               您可以使用搜索功能或浏览新品列表来发现更多商品
