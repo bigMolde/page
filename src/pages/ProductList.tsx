@@ -562,7 +562,7 @@ const ProductList: React.FC = () => {
                             borderRadius: '0px',
                             paddingTop: '12px',
                             paddingBottom: '12px',
-                            paddingLeft: '36px',
+                            paddingLeft: '46px',
                             paddingRight: '16px'
                           }}
                         >
