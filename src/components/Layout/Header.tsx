@@ -32,7 +32,7 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <Link to="/search" className="nav-link">
-                  关键词搜索
+                  按作品搜索
                 </Link>
               </li>
               <li>
