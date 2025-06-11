@@ -56,7 +56,7 @@ const NewProducts: React.FC = () => {
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">新品列表</h1>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">产品列表</h1>
               <p className="text-gray-600">{newProducts.length} 件新商品</p>
             </div>
             
