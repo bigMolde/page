@@ -521,7 +521,7 @@ const ProductList: React.FC = () => {
                                   backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
-                                  paddingLeft: '16px',
+                                  paddingLeft: '29px',
                                   paddingRight: '16px'
                                 }}
                               >
