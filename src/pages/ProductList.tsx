@@ -574,7 +574,7 @@ const ProductList: React.FC = () => {
                                   style={{
                                     width: '12px',
                                     height: '12px',
-                                    accentColor: '#E33D3D'
+                                    accentColor: '#F6DFDE'
                                   }}
                                 />
                                 <span className="text-xs text-left text-black">
