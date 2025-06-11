@@ -1,178 +1,193 @@
-import React, { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Search as SearchIcon, X } from 'lucide-react';
-import ProductCard from '../components/Product/ProductCard';
-import { products } from '../data/products';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+/**
+ * 作品列表页面（按作品搜索）
+ * 参考提供的案例进行设计，保持简洁专业的风格
+ */
 const Search: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
-  const [recentSearches, setRecentSearches] = useState<string[]>([
-    'iPhone', '连衣裙', '蓝牙耳机', '运动鞋', '护肤品'
-  ]);
+  const [selectedLetter, setSelectedLetter] = useState<string>('');
 
-  const searchResults = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return [];
-    }
-
-    const query = searchQuery.toLowerCase().trim();
-    return products.filter(product =>
-      product.name.toLowerCase().includes(query) ||
-      product.description.toLowerCase().includes(query) ||
-      product.category.toLowerCase().includes(query) ||
-      product.tags?.some(tag => tag.toLowerCase().includes(query))
-    );
-  }, [searchQuery]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      setSearchParams({ q: searchQuery.trim() });
-      // Add to recent searches
-      setRecentSearches(prev => {
-        const filtered = prev.filter(item => item !== searchQuery.trim());
-        return [searchQuery.trim(), ...filtered].slice(0, 10);
-      });
-    }
+  // 完整的作品数据，按首字母分组
+  const worksData = {
+    'A': [
+      '阿基拉', '阿松', '暗杀教室', '爱丽丝学园',
+      '爱吃拉面的小泉同学', '埃罗芒阿老师', '埃及神明们的日常', '安达与岛村'
+    ],
+    'B': [
+      '白箱', '白色相簿', '白兔糖', '北斗神拳',
+      '爆漫王', '薄樱鬼', '冰菓', '巴哈姆特之怒'
+    ],
+    'C': [
+      '灌篮高手', '超时空要塞F', '虫师', '初音未来',
+      '从零开始的异世界生活', '城市猎人', '超能陆战队', '赤发白雪姬'
+    ],
+    'D': [
+      '刀剑神域', '地狱少女', '动物朋友', '东京食尸鬼',
+      '多啦A梦', '电锯人', '东方少年', '地球防卫少年'
+    ],
+    'E': [
+      '恶魔人', '二十面相少女', '恶魔城', '恶魔奶爸',
+      '恶魔高校DxD', '恶魔的谜题', '恶魔幸存者', '恶魔猎人'
+    ],
+    'F': [
+      'Fate/Zero', 'Fate/stay night', 'Free!', 'FLCL',
+      'Fate/Grand Order', 'Fate/Apocrypha', 'Full Metal Panic!', 'Fate/kaleid liner'
+    ],
+    'G': [
+      '鬼灭之刃', '攻壳机动队', '钢之炼金术师', '高达',
+      '工作细胞', '干物妹！小埋', '怪物', '光之美少女'
+    ],
+    'H': [
+      '火影忍者', '海贼王', '黑执事', '黑色五叶草',
+      '花开伊吕波', '狼与香辛料', '黑子的篮球', '化物语'
+    ],
+    'J': [
+      'JOJO的奇妙冒险', '进击的巨人', '机动战士高达', '寄生兽',
+      '境界的彼方', '境界触发者', '绝园的暴风雨', '监狱学园'
+    ],
+    'K': [
+      '口袋妖怪', '柯南', 'K-ON!', '空之境界',
+      '刻刻', '科学超电磁炮', '可塑性记忆', '空战魔导士'
+    ],
+    'L': [
+      '龙珠', '灵能百分百', '路人女主的养成方法', 'Love Live!',
+      '狼与香辛料', '凉宫春日的忧郁', '轻音少女', '零之使魔'
+    ],
+    'M': [
+      '名侦探柯南', '魔法少女小圆', '魔卡少女樱', '秒速五厘米',
+      '妄想学生会', '魔法禁书目录', '魔王勇者', '美少女战士'
+    ],
+    'N': [
+      'NARUTO', 'NEW GAME!', 'NANA', 'NO GAME NO LIFE',
+      '南家三姐妹', '女神异闻录', '逆转裁判', '女高中生的虚度日常'
+    ],
+    'O': [
+      'ONE PIECE', 'OVERLORD', 'Orange', 'OKKO',
+      '欧布奥特曼', '乙女游戏世界', '王者天下', '我的英雄学院'
+    ],
+    'P': [
+      '排球少年！！', 'Pokemon', 'Persona', 'PSYCHO-PASS',
+      '乒乓', '飘零燕', '破刃之剑', '普罗米亚'
+    ],
+    'Q': [
+      '拳愿阿修罗', '青春猪头少年', '七大罪', '棋魂',
+      '青之驱魔师', '轻音少女', '青春×机关枪', '全职猎人'
+    ],
+    'R': [
+      'Re:从零开始的异世界生活', 'Robotics;Notes', 'ReLIFE', 'Rewrite',
+      '日常', '人渣的本愿', '热带雨林的爆笑生活', '如果有妹妹就好了'
+    ],
+    'S': [
+      '死神', '数码宝贝', '四月是你的谎言', '食戟之灵',
+      '少女终末旅行', '声之形', '石纪元', '斩！赤红之瞳'
+    ],
+    'T': [
+      '天空之城', '天气之子', '天元突破', '东京喰种',
+      '头文字D', '图书馆战争', '天使的3P!', '天真与闪电'
+    ],
+    'W': [
+      '我的英雄学院', '未闻花名', '物语系列', '为美好的世界献上祝福！',
+      '我们仍未知道那天所看见的花的名字', '无头骑士异闻录', '我的青春恋爱物语果然有问题', '忘却的旋律'
+    ],
+    'X': [
+      '夏目友人帐', '小林家的龙女仆', '学园孤岛', '新世纪福音战士',
+      '心理测量者', '血界战线', '星际牛仔', '虚构推理'
+    ],
+    'Y': [
+      '约定的梦幻岛', '银魂', '游戏人生', '摇曳露营△',
+      '樱花庄的宠物女孩', '野良神', '异世界四重奏', '月刊少女野崎君'
+    ],
+    'Z': [
+      '紫罗兰永恒花园', '在下坂本，有何贵干？', '只有我不存在的城市', '中二病也要谈恋爱！',
+      '终将成为你', '最终幻想', '足球小将', '昨日之歌'
+    ]
   };
 
-  const handleRecentSearch = (query: string) => {
-    setSearchQuery(query);
-    setSearchParams({ q: query });
-  };
-
-  const clearSearch = () => {
-    setSearchQuery('');
-    setSearchParams({});
-  };
-
-  const currentQuery = searchParams.get('q');
+  // 获取所有字母
+  const allLetters = Object.keys(worksData).sort();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Search Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <form onSubmit={handleSearch} className="mb-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="搜索商品..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-3 pl-12 pr-12 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-500 text-lg"
-              />
-              <SearchIcon 
-                size={24} 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" 
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={clearSearch}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  <X size={20} />
-                </button>
-              )}
-            </div>
-          </form>
+    <main className="max-w-5xl mx-auto px-6 md:px-8 py-10 bg-white text-gray-900 antialiased">
+      {/* 主标题 */}
+      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8">作品列表</h1>
 
-          {/* Recent Searches */}
-          {!currentQuery && recentSearches.length > 0 && (
-            <div>
-              <h3 className="text-sm font-medium text-gray-900 mb-3">最近搜索</h3>
-              <div className="flex flex-wrap gap-2">
-                {recentSearches.map((query, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleRecentSearch(query)}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors"
-                  >
-                    {query}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+      {/* 拼音索引导航 */}
+      <nav className="mb-8">
+        <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium">
+          {allLetters.map((letter) => (
+            <li key={letter}>
+              <a 
+                href={`#${letter.toLowerCase()}-list`} 
+                className={`hover:text-red-600 transition-colors ${
+                  selectedLetter === letter ? 'text-red-600 font-bold' : 'text-gray-700'
+                }`}
+                onClick={() => setSelectedLetter(letter)}
+              >
+                {letter}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-3 h-px bg-gray-200" />
+      </nav>
 
-        {/* Search Results */}
-        {currentQuery && (
-          <div>
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                搜索结果: "{currentQuery}"
-              </h2>
-              <p className="text-gray-600">
-                找到 {searchResults.length} 件商品
-              </p>
-            </div>
-
-            {searchResults.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-                <div className="max-w-md mx-auto">
-                  <SearchIcon size={64} className="text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    没有找到相关商品
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    尝试使用其他按作品搜索，或浏览我们的商品分类
-                  </p>
-                  <button
-                    onClick={clearSearch}
-                    className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
-                  >
-                    清除搜索
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {searchResults.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Popular Categories */}
-        {!currentQuery && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">热门分类</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {[
-                { name: '电子产品', slug: 'electronics', image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg' },
-                { name: '服装配饰', slug: 'fashion', image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg' },
-                { name: '家居生活', slug: 'home', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg' },
-                { name: '运动户外', slug: 'sports', image: 'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg' },
-                { name: '美妆护肤', slug: 'beauty', image: 'https://images.pexels.com/photos/2113855/pexels-photo-2113855.jpeg' },
-                { name: '图书文具', slug: 'books', image: 'https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg' }
-              ].map((category) => (
-                <button
-                  key={category.slug}
-                  onClick={() => handleRecentSearch(category.name)}
-                  className="group text-center"
-                >
-                  <div className="w-full aspect-square rounded-lg overflow-hidden mb-2">
-                    <img
-                      src={category.image}
-                      alt={category.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+      {/* 作品列表 */}
+      <div className="space-y-14">
+        {allLetters.map((letter) => (
+          <section key={letter} id={`${letter.toLowerCase()}-list`} className="scroll-mt-8">
+            <h2 className="text-lg font-semibold mb-4 text-gray-900">
+              {letter} 开头
+            </h2>
+            
+            {/* 作品网格 */}
+            <div className="space-y-4">
+              {/* 将作品按每行4个分组 */}
+              {Array.from({ length: Math.ceil(worksData[letter].length / 4) }, (_, rowIndex) => (
+                <div key={rowIndex} className="py-4 border-b border-gray-200 last:border-b-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 text-sm">
+                    {worksData[letter]
+                      .slice(rowIndex * 4, (rowIndex + 1) * 4)
+                      .map((work, index) => (
+                        <Link
+                          key={index}
+                          to={`/r/${encodeURIComponent(work)}`}
+                          className="text-gray-700 hover:text-red-600 hover:underline transition-colors duration-200 py-1"
+                        >
+                          {work}
+                        </Link>
+                      ))}
                   </div>
-                  <p className="text-sm text-gray-900 group-hover:text-red-600 transition-colors">
-                    {category.name}
-                  </p>
-                </button>
+                </div>
               ))}
             </div>
-          </div>
-        )}
+          </section>
+        ))}
       </div>
-    </div>
+
+      {/* 底部说明 */}
+      <div className="mt-16 pt-8 border-t border-gray-200">
+        <div className="text-center text-gray-600">
+          <p className="text-sm">
+            点击作品名称查看相关商品 • 共收录 {Object.values(worksData).flat().length} 部作品
+          </p>
+          <div className="mt-4 flex justify-center space-x-6">
+            <Link
+              to="/categories"
+              className="text-sm text-red-600 hover:text-red-700 transition-colors"
+            >
+              按类别搜索
+            </Link>
+            <Link
+              to="/new"
+              className="text-sm text-red-600 hover:text-red-700 transition-colors"
+            >
+              产品列表
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
