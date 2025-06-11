@@ -5,7 +5,7 @@ const Categories: React.FC = () => {
   // 分类数据结构
   const categoryData = [
     {
-      title: '手办/模型',
+      title: '手办 / 模型',
       items: [
         '所有手办/模型',
         'PVC手办',
@@ -15,11 +15,11 @@ const Categories: React.FC = () => {
         '模型套件',
         '迷你手办',
         '限定手办',
-        '预约手办'
+        '预售手办'
       ]
     },
     {
-      title: '服装/配饰',
+      title: '服装 / 配饰',
       items: [
         '所有服装/配饰',
         'T恤',
@@ -33,7 +33,7 @@ const Categories: React.FC = () => {
       ]
     },
     {
-      title: '文具/杂货',
+      title: '文具 / 杂货',
       items: [
         '所有文具/杂货',
         '笔记本',
@@ -47,7 +47,7 @@ const Categories: React.FC = () => {
       ]
     },
     {
-      title: '游戏/玩具',
+      title: '游戏 / 玩具',
       items: [
         '所有游戏/玩具',
         '卡牌游戏',
@@ -61,7 +61,7 @@ const Categories: React.FC = () => {
       ]
     },
     {
-      title: '漫画/书籍',
+      title: '漫画 / 书籍',
       items: [
         '所有漫画/书籍',
         '单行本',
@@ -75,7 +75,7 @@ const Categories: React.FC = () => {
       ]
     },
     {
-      title: '数码/电子',
+      title: '数码 / 电子',
       items: [
         '所有数码/电子',
         '手机壳',
@@ -89,7 +89,7 @@ const Categories: React.FC = () => {
       ]
     },
     {
-      title: '家居/生活',
+      title: '家居 / 生活',
       items: [
         '所有家居/生活',
         '抱枕',
@@ -103,7 +103,7 @@ const Categories: React.FC = () => {
       ]
     },
     {
-      title: '限定/特别',
+      title: '限定 / 特别',
       items: [
         '所有限定/特别',
         '会场限定',
@@ -120,33 +120,31 @@ const Categories: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* 页面标题 */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            商品类别一览
-          </h1>
-          <p className="text-gray-600 text-lg">
-            从您喜欢的分类中寻找商品
-          </p>
-        </div>
+      {/* 容器：最大宽度 1280px，左右自动居中 */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        
+        {/* 页面标题：靠左、大气 */}
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-10">
+          商品类别一览
+        </h1>
 
-        {/* 分类网格 */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        {/* 栅格：≥768px 四列，≥640px 两列，移动端一列 */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+          
           {categoryData.map((category, index) => (
-            <article key={index} className="flex flex-col bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-              {/* 卡片标题 */}
-              <header className="bg-rose-100 h-11 flex items-center px-4 font-semibold text-gray-800 rounded-t-lg">
-                {category.title}
+            <article key={index} className="flex flex-col rounded-lg shadow-sm ring-1 ring-gray-100">
+              {/* 一级标题带背景（浅粉），文本稍大加粗 */}
+              <header className="bg-rose-100 px-5 py-3 rounded-t-lg">
+                <h2 className="text-lg font-semibold text-gray-900">{category.title}</h2>
               </header>
 
-              {/* 分类列表 */}
-              <ul className="flex-1 mt-4 mb-4 px-4 space-y-2 text-sm text-gray-800">
+              {/* 二级列表：无背景，仅留空隙 */}
+              <ul className="px-5 py-4 space-y-2 text-gray-700 leading-relaxed text-sm">
                 {category.items.map((item, itemIndex) => (
                   <li key={itemIndex}>
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="block py-1 hover:text-red-600 hover:bg-red-50 hover:px-2 hover:-mx-2 rounded transition-all duration-200"
+                      className="block hover:text-red-600 transition-colors duration-200"
                     >
                       {item}
                     </Link>
@@ -155,33 +153,35 @@ const Categories: React.FC = () => {
               </ul>
             </article>
           ))}
+
         </section>
 
-        {/* 底部说明 */}
+        {/* 底部引导区域 */}
         <div className="mt-16 text-center">
-          <div className="bg-white rounded-lg shadow-sm p-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg shadow-sm ring-1 ring-gray-100 p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
               找不到您想要的商品？
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 leading-relaxed">
               您可以使用搜索功能或浏览新品列表来发现更多商品
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/search"
-                className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+                className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200"
               >
-                搜索商品
+                关键词搜索
               </Link>
               <Link
                 to="/new"
-                className="border border-red-600 text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-red-50 transition-colors"
+                className="border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition-colors duration-200"
               >
-                查看新品
+                新品列表
               </Link>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
