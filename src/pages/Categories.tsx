@@ -136,7 +136,7 @@ const Categories: React.FC = () => {
             >
               {/* 一级标题：去除w-full，添加px-6 */}
               <h2 
-                className="font-semibold text-lg px-6 py-4"
+                className="font-semibold text-lg px-10 py-4"
                 style={{ 
                   backgroundColor: '#F6DFDE', 
                   color: '#374151' 
