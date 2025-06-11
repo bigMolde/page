@@ -133,8 +133,8 @@ const Categories: React.FC = () => {
               key={title}
               className="flex flex-col items-center text-center bg-white rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
             >
-              {/* 一级标题：红色背景，白色文字 */}
-              <h2 className="w-full bg-red-300 text-white font-semibold text-lg px-4 py-3 text-center">
+              {/* 一级标题：粉色背景，白色文字 */}
+              <h2 className="w-full bg-pink-300 text-white font-semibold text-lg px-4 py-3 text-center">
                 {title}
               </h2>
 
@@ -144,7 +144,7 @@ const Categories: React.FC = () => {
                   <li key={item}>
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="block hover:text-red-600 hover:bg-red-50 px-2 py-1 rounded transition-colors"
+                      className="block hover:text-pink-600 hover:bg-pink-50 px-2 py-1 rounded transition-colors"
                     >
                       {item}
                     </Link>
@@ -167,13 +167,13 @@ const Categories: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/search"
-                className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
+                className="bg-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-600 transition"
               >
                 关键词搜索
               </Link>
               <Link
                 to="/new"
-                className="border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition"
+                className="border-2 border-pink-500 text-pink-600 px-8 py-3 rounded-lg font-semibold hover:bg-pink-50 transition"
               >
                 新品列表
               </Link>
