@@ -518,7 +518,7 @@ const ProductList: React.FC = () => {
                                 key={work}
                                 className="flex items-center cursor-pointer"
                                 style={{
-                                  backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
+                                  backgroundColor: selectedWorks.includes(work) ? '#FFFFFF' : 'transparent',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
                                   paddingLeft: '29px',
