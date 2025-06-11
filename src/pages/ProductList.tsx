@@ -280,7 +280,7 @@ const ProductList: React.FC = () => {
   // 获取当前筛选标签
   const getActiveFilters = () => {
     const filters = [];
-    if (searchQuery) filters.push({ type: 'search', label: 搜索: ${searchQuery}, value: searchQuery });
+    if (searchQuery) filters.push({ type: 'search', label: `搜索: ${searchQuery}`, value: searchQuery });
     selectedCategories.forEach(cat => {
       filters.push({ type: 'category', label: cat, value: cat });
     });
@@ -434,21 +434,21 @@ const ProductList: React.FC = () => {
               <div className="flex rounded-lg border overflow-hidden">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={p-2 ${
+                  className={`p-2 ${
                     viewMode === 'grid'
                       ? 'bg-red-600 text-white'
                       : 'bg-white text-gray-600 hover:bg-gray-50'
-                  }}
+                  }`}
                 >
                   <Grid size={20} />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={p-2 border-l ${
+                  className={`p-2 border-l ${
                     viewMode === 'list'
                       ? 'bg-red-600 text-white'
                       : 'bg-white text-gray-600 hover:bg-gray-50'
-                  }}
+                  }`}
                 >
                   <List size={20} />
                 </button>
@@ -656,17 +656,17 @@ const ProductList: React.FC = () => {
                   <div className="border border-t-0 p-3 space-y-2">
                     <button
                       onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
-                      className={w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
+                      className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
                         stockFilter === 'inStock' ? 'bg-red-50 text-red-600' : ''
-                      }}
+                      }`}
                     >
                       <span className="text-xs font-medium text-left">有库存</span>
                     </button>
                     <button
                       onClick={() => setStockFilter(stockFilter === 'includeOutOfStock' ? 'all' : 'includeOutOfStock')}
-                      className={w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
+                      className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
                         stockFilter === 'includeOutOfStock' ? 'bg-red-50 text-red-600' : ''
-                      }}
+                      }`}
                     >
                       <span className="text-xs font-medium text-left">包括无库存</span>
                     </button>
