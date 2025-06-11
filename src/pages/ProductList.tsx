@@ -318,7 +318,7 @@ const ProductList: React.FC = () => {
                           onClick={() => toggleKanaRow(kana)}
                           className="w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded"
                         >
-                          <span className="text-sm font-medium">{kana} 行</span>
+                          <span className="text-sm font-medium">{kana}</span>
                           {expandedKanaRows[kana] ? <Minus size={16} /> : <Plus size={16} />}
                         </button>
                         {expandedKanaRows[kana] && worksInKana.length > 0 && (
@@ -342,36 +342,26 @@ const ProductList: React.FC = () => {
                 {/* 分类过滤 */}
                 <div>
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">类别</h3>
-                  <div className="border border-t-0 rounded-b p-3 space-y-3">
+                  <div className="space-y-2">
                     {categoryData.map((cat) => (
                       <div key={cat.id}>
-                        <div className="flex items-center justify-between">
-                          <label className="flex items-center space-x-2 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={selectedCategories.includes(cat.id)}
-                              onChange={() => toggleCategory(cat.id)}
-                              className="form-checkbox text-red-600"
-                            />
-                            <span className="text-sm">{cat.name}</span>
-                          </label>
-                          <button
-                            onClick={() => toggleSection(cat.id)}
-                            className="p-1 hover:bg-gray-100 rounded"
-                          >
-                            {expandedSections[cat.id] ? <Minus size={14} /> : <Plus size={14} />}
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => toggleSection(cat.id)}
+                          className="w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded"
+                        >
+                          <span className="text-sm font-medium">{cat.name}</span>
+                          {expandedSections[cat.id] ? <Minus size={16} /> : <Plus size={16} />}
+                        </button>
                         {expandedSections[cat.id] && (
-                          <div className="ml-6 mt-2 space-y-1">
+                          <div className="ml-4 mt-2 space-y-1">
                             {cat.subcategories.map((sub, index) => (
-                              <label key={index} className="flex items-center space-x-2 cursor-pointer">
-                                <input
-                                  type="checkbox"
-                                  className="form-checkbox text-red-600"
-                                />
-                                <span className="text-xs text-gray-600">{sub}</span>
-                              </label>
+                              <a
+                                key={index}
+                                href="#"
+                                className="block text-sm text-blue-600 hover:text-blue-800 py-1"
+                              >
+                                {sub}
+                              </a>
                             ))}
                           </div>
                         )}
