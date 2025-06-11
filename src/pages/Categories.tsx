@@ -138,7 +138,7 @@ const Categories: React.FC = () => {
               <h2 
                 className="w-full font-semibold text-lg px-4 py-3"
                 style={{ 
-                  backgroundColor: '#F6DFDE', // pink-300
+                  backgroundColor: '#F6DFDE', 
                   color: '#ffffff' 
                 }}
               >
