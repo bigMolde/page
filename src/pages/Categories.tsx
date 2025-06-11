@@ -147,7 +147,7 @@ const Categories: React.FC = () => {
               </h2>
 
               {/* 二级列表：调整行距为1.25 */}
-              <ul className="px-6 py-4 text-sm text-gray-800" style={{ listStyle: 'none', lineHeight: '1.25' }}>
+              <ul className="px-6 py-4 text-sm text-gray-800" style={{ listStyle: 'none', lineHeight: '1.5' }}>
                 {items.map(item => (
                   <li key={item} className="mb-3">
                     <Link
