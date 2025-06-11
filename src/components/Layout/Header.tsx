@@ -54,7 +54,7 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-          {/* Search bar - 关键词搜索 */}
+          {/* Search bar - 按作品搜索 */}
           <form onSubmit={handleSearch} className="search-form">
             <div className="search-container">
               <input
@@ -135,7 +135,7 @@ const Header: React.FC = () => {
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                关键词搜索
+                按作品搜索
               </Link>
               <Link 
                 to="/new" 
