@@ -562,8 +562,7 @@ const ProductList: React.FC = () => {
                                   paddingTop: '8px',
                                   paddingBottom: '8px',
                                   paddingLeft: '12px',
-                                  paddingRight: '12px',
-                                  borderRadius: '4px'
+                                  paddingRight: '12px'
                                 }}
                               >
                                 <input
