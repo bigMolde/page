@@ -545,7 +545,7 @@ const ProductList: React.FC = () => {
                           onClick={() => toggleSection(cat.title)}
                           className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 "
                           style={{
-                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#E33D3D' : 'transparent'
+                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent'
                           }}
                         >
                           <span className="text-xs font-medium text-left text-black">{cat.title}</span>
