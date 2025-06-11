@@ -171,8 +171,8 @@ const ProductList: React.FC = () => {
       <div className="w-full h-2 bg-red-600" />
 
       <div className="container mx-auto px-4 pt-6 pb-8">
-        {/* 页面标题 */}
-        <div className="mb-6">
+        {/* 页面标题 - 居中显示 */}
+        <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold">{getPageTitle()}</h1>
         </div>
 
