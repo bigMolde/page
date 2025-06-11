@@ -22,37 +22,22 @@ const Header: React.FC = () => {
       <div className="header-container">
         {/* Top bar */}
         <div className="header-top">
-          {/* Left Navigation - 按分类搜索 */}
+          {/* Left Navigation - 主要功能导航 */}
           <nav className="nav">
             <ul className="nav-list">
               <li>
-                <Link to="/r/figures" className="nav-link">
-                  手办
+                <Link to="/categories" className="nav-link">
+                  分类商品列表
                 </Link>
               </li>
               <li>
-                <Link to="/r/apparel" className="nav-link">
-                  服装
+                <Link to="/search" className="nav-link">
+                  关键词搜索
                 </Link>
               </li>
               <li>
-                <Link to="/r/stationery" className="nav-link">
-                  文具杂货
-                </Link>
-              </li>
-              <li>
-                <Link to="/r/games" className="nav-link">
-                  游戏玩具
-                </Link>
-              </li>
-              <li>
-                <Link to="/r/books" className="nav-link">
-                  漫画书籍
-                </Link>
-              </li>
-              <li>
-                <Link to="/r/accessories" className="nav-link">
-                  配饰
+                <Link to="/new" className="nav-link">
+                  新品列表
                 </Link>
               </li>
             </ul>
@@ -133,52 +118,31 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile menu - 分类商品列表 */}
+        {/* Mobile menu - 主要功能列表 */}
         {isMenuOpen && (
           <div className="mobile-menu">
             <div className="mobile-menu-content">
-              <div className="mobile-menu-section">商品分类</div>
+              <div className="mobile-menu-section">主要功能</div>
               <Link 
-                to="/r/figures" 
+                to="/categories" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                手办
+                分类商品列表
               </Link>
               <Link 
-                to="/r/apparel" 
+                to="/search" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                服装
+                关键词搜索
               </Link>
               <Link 
-                to="/r/stationery" 
+                to="/new" 
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                文具杂货
-              </Link>
-              <Link 
-                to="/r/games" 
-                className="mobile-menu-link"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                游戏玩具
-              </Link>
-              <Link 
-                to="/r/books" 
-                className="mobile-menu-link"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                漫画书籍
-              </Link>
-              <Link 
-                to="/r/accessories" 
-                className="mobile-menu-link"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                配饰
+                新品列表
               </Link>
             </div>
           </div>

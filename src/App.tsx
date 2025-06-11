@@ -18,9 +18,11 @@ function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/categories" element={<ProductList />} />
             <Route path="/r/:category" element={<ProductList />} />
             <Route path="/r/:series" element={<ProductList />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/new" element={<ProductList />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout/confirm" element={<CheckoutConfirm />} />
