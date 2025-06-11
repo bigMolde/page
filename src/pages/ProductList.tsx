@@ -14,7 +14,7 @@ const ProductList: React.FC = () => {
   // 搜索和过滤状态
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [hasStock, setHasStock] = useState(false);
+  const [stockFilter, setStockFilter] = useState<'all' | 'inStock' | 'includeOutOfStock'>('all');
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({});
   const [expandedKanaRows, setExpandedKanaRows] = useState<{[key: string]: boolean}>({});
 
@@ -194,9 +194,10 @@ const ProductList: React.FC = () => {
     }
 
     // 库存过滤
-    if (hasStock) {
+    if (stockFilter === 'inStock') {
       filtered = filtered.filter(product => product.stock_quantity > 0);
     }
+    // 'includeOutOfStock' 和 'all' 都显示所有商品，不需要额外过滤
 
     // 排序
     switch (sortBy) {
@@ -220,7 +221,7 @@ const ProductList: React.FC = () => {
     }
 
     return filtered;
-  }, [category, series, sortBy, searchQuery, selectedCategories, hasStock]);
+  }, [category, series, sortBy, searchQuery, selectedCategories, stockFilter]);
 
   // 获取当前筛选标签
   const getActiveFilters = () => {
@@ -230,7 +231,8 @@ const ProductList: React.FC = () => {
       const categoryName = categoryData.find(c => c.title === cat)?.title || cat;
       filters.push({ type: 'category', label: categoryName, value: cat });
     });
-    if (hasStock) filters.push({ type: 'stock', label: '有库存', value: 'stock' });
+    if (stockFilter === 'inStock') filters.push({ type: 'stock', label: '有库存', value: 'inStock' });
+    if (stockFilter === 'includeOutOfStock') filters.push({ type: 'stock', label: '包括无库存', value: 'includeOutOfStock' });
     return filters;
   };
 
@@ -243,7 +245,7 @@ const ProductList: React.FC = () => {
         setSelectedCategories(prev => prev.filter(cat => cat !== value));
         break;
       case 'stock':
-        setHasStock(false);
+        setStockFilter('all');
         break;
     }
   };
@@ -471,18 +473,25 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 库存状态 */}
+                {/* 库存状态 - 简化为两个选择 */}
                 <div>
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">库存</h3>
-                  <div className="border border-t-0 rounded-b p-3">
+                  <div className="border border-t-0 rounded-b p-3 space-y-2">
                     <button
-                      onClick={() => setHasStock(!hasStock)}
+                      onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
                       className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
-                        hasStock ? 'bg-red-50 text-red-600' : ''
+                        stockFilter === 'inStock' ? 'bg-red-50 text-red-600' : ''
                       }`}
                     >
                       <span className="text-xs font-medium text-left">有库存</span>
-                      {hasStock ? <Minus size={14} /> : <Plus size={14} />}
+                    </button>
+                    <button
+                      onClick={() => setStockFilter(stockFilter === 'includeOutOfStock' ? 'all' : 'includeOutOfStock')}
+                      className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
+                        stockFilter === 'includeOutOfStock' ? 'bg-red-50 text-red-600' : ''
+                      }`}
+                    >
+                      <span className="text-xs font-medium text-left">包括无库存</span>
                     </button>
                   </div>
                 </div>
