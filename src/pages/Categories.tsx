@@ -121,8 +121,8 @@ const Categories: React.FC = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* 页面标题 */}
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-10">
+        {/* 页面标题 - 调整行距为1.25 */}
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-10" style={{ lineHeight: '1.25' }}>
           商品类别一览
         </h1>
 
@@ -134,21 +134,22 @@ const Categories: React.FC = () => {
               className="flex flex-col items-center text-center rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
               style={{ backgroundColor: '#ffffff' }}
             >
-              {/* 一级标题：去除w-full，添加px-6 */}
+              {/* 一级标题：调整行距为1.25 */}
               <h2 
                 className="font-semibold text-lg px-8 py-4"
                 style={{ 
                   backgroundColor: '#F6DFDE', 
-                  color: '#374151' 
+                  color: '#374151',
+                  lineHeight: '1.25'
                 }}
               >
                 {title}
               </h2>
 
-              {/* 二级列表：去除w-full，添加px-6 */}
-              <ul className="px-6 py-4 space-y-3 text-sm text-gray-800" style={{ listStyle: 'none' }}>
+              {/* 二级列表：调整行距为1.25 */}
+              <ul className="px-6 py-4 text-sm text-gray-800" style={{ listStyle: 'none', lineHeight: '1.25' }}>
                 {items.map(item => (
-                  <li key={item}>
+                  <li key={item} className="mb-3">
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
                       className="block px-2 py-1 rounded transition-colors"
