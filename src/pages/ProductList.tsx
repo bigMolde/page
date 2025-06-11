@@ -345,6 +345,12 @@ const ProductList: React.FC = () => {
     return category?.items.some(item => selectedCategories.includes(item)) || false;
   };
 
+  // 检查作品首字母标题是否应该高亮
+  const isKanaTitleHighlighted = (kana: string) => {
+    const worksInKana = worksByKana[kana] || [];
+    return worksInKana.some(work => selectedWorks.includes(work));
+  };
+
   const getPageTitle = () => {
     if (category) {
       const categoryData = categories.find(cat => cat.slug === category);
@@ -484,7 +490,7 @@ const ProductList: React.FC = () => {
             <aside className="w-70 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen" style={{ width: '280px' }}>
               <div className="p-6 space-y-6">
                 
-                {/* 作品名称（按首字母检索） - 调整字体大小 */}
+                {/* 作品名称（按首字母检索） - 应用与类别相同的样式 */}
                 <div>
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">作品名称</h3>
                   <div className="space-y-1">
@@ -493,8 +499,12 @@ const ProductList: React.FC = () => {
                         <button
                           onClick={() => toggleKanaRow(kana)}
                           className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
+                          style={{
+                            backgroundColor: isKanaTitleHighlighted(kana) ? '#E33D3D' : 'transparent',
+                            borderRadius: '0px'
+                          }}
                         >
-                          <span className="text-xs font-medium text-left">{kana}</span>
+                          <span className="text-xs font-medium text-left text-black">{kana}</span>
                           {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedKanaRows[kana] && worksInKana.length > 0 && (
