@@ -211,7 +211,7 @@ const Categories: React.FC = () => {
                   backgroundColor: 'transparent'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#fFFFFF'; 
+                  e.currentTarget.style.backgroundColor = '#FFFFFF'; 
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
