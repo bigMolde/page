@@ -197,7 +197,7 @@ const Categories: React.FC = () => {
                 to="/new"
                 className="border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition"
               >
-                新品列表
+                产品列表
               </Link>
             </div>
           </div>
