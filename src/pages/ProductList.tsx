@@ -486,7 +486,7 @@ const ProductList: React.FC = () => {
                 
                 {/* 作品名称（按首字母检索） - 调整字体大小 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">作品名称</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">作品名称</h3>
                   <div className="space-y-1">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
@@ -534,20 +534,20 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 - 调整字体大小并添加选择框 */}
+                {/* 分类过滤 - 删除倒角 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2  text-sm">类别</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">类别</h3>
                   <div className="space-y-1">
                     {categoryData.map((cat) => (
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50  "
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent'
                           }}
                         >
-                          <span className="text-xs font-medium text-left text-black rounded-none ">{cat.title}</span>
+                          <span className="text-xs font-medium text-left text-black">{cat.title}</span>
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
@@ -589,8 +589,8 @@ const ProductList: React.FC = () => {
 
                 {/* 库存状态 - 简化为两个选择 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">库存</h3>
-                  <div className="border border-t-0 rounded-b p-3 space-y-2">
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">库存</h3>
+                  <div className="border border-t-0 p-3 space-y-2">
                     <button
                       onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
                       className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
