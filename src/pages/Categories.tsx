@@ -207,7 +207,7 @@ const Categories: React.FC = () => {
                 className="px-8 py-3 rounded-lg font-semibold transition"
                 style={{
                   border: '2px solid #000000', // pink-500
-                  color: white, // pink-600
+                  color: "white", // pink-600
                   backgroundColor: 'transparent'
                 }}
                 onMouseEnter={(e) => {
