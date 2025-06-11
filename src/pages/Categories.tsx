@@ -191,7 +191,7 @@ const Categories: React.FC = () => {
                 to="/search"
                 className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
               >
-                关键词搜索1
+                关键词搜索
               </Link>
               <Link
                 to="/new"
