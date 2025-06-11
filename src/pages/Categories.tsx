@@ -132,19 +132,19 @@ const Categories: React.FC = () => {
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           
           {categoryData.map((category, index) => (
-            <article key={index} className="flex flex-col rounded-lg shadow-sm ring-1 ring-gray-100">
-              {/* 一级标题带背景（浅粉），文本稍大加粗 */}
-              <header className="bg-rose-100 px-5 py-3 rounded-t-lg">
-                <h2 className="text-lg font-semibold text-gray-900">{category.title}</h2>
+            <article key={index} className="flex flex-col rounded-lg shadow-sm ring-1 ring-gray-100 bg-white overflow-hidden">
+              {/* 一级标题带红色背景，白色文字 */}
+              <header className="bg-red-600 px-5 py-3">
+                <h2 className="text-lg font-semibold text-white">{category.title}</h2>
               </header>
 
-              {/* 二级列表：无背景，仅留空隙 */}
-              <ul className="px-5 py-4 space-y-2 text-gray-700 leading-relaxed text-sm">
+              {/* 二级列表：白色背景，仅留空隙 */}
+              <ul className="px-5 py-4 space-y-2 text-gray-700 leading-relaxed text-sm flex-1">
                 {category.items.map((item, itemIndex) => (
                   <li key={itemIndex}>
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="block hover:text-red-600 transition-colors duration-200"
+                      className="block hover:text-red-600 transition-colors duration-200 py-1"
                     >
                       {item}
                     </Link>
