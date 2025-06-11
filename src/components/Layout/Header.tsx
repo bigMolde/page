@@ -27,7 +27,7 @@ const Header: React.FC = () => {
             <ul className="nav-list">
               <li>
                 <Link to="/categories" className="nav-link">
-                  分类商品列表
+                  按类别搜索
                 </Link>
               </li>
               <li>
