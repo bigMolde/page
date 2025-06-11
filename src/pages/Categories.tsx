@@ -136,7 +136,7 @@ const Categories: React.FC = () => {
             >
               {/* 一级标题：粉色背景，白色文字 */}
               <h2 
-                className="w-full font-semibold text-lg px-4 py-3"
+                className="w-full font-semibold text-lg px-4 py-3 rounded-lg"
                 style={{ 
                   backgroundColor: '#F6DFDE', 
                   color: '#ffffff' 
@@ -146,7 +146,7 @@ const Categories: React.FC = () => {
               </h2>
 
               {/* 二级列表：无圆点，增大行距，居中 */}
-              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800 rounded-lg">
+              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800 ">
                 {items.map(item => (
                   <li key={item}>
                     <Link
