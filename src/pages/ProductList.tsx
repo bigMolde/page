@@ -43,19 +43,120 @@ const ProductList: React.FC = () => {
     return kanaGroups;
   }, []);
 
-  // 分类数据
+  // 分类数据 - 对应Categories.tsx的结构
   const categoryData = [
-    { id: 'images', name: '图像/印刷', subcategories: ['海报', '明信片', '贴纸'] },
-    { id: 'stationery', name: '文具', subcategories: ['笔记本', '笔类', '文件夹'] },
-    { id: 'daily', name: '日用品（生活杂货）', subcategories: ['收纳盒', '清洁用品', '生活小物'] },
-    { id: 'tableware', name: '餐具', subcategories: ['杯子', '盘子', '餐具套装'] },
-    { id: 'apparel', name: '服饰/服装品', subcategories: ['T恤', '连帽衫', '配饰'] },
-    { id: 'toys', name: '玩具', subcategories: ['手办', '模型', '益智玩具'] },
-    { id: 'decoration', name: '装饰品/家居', subcategories: ['挂画', '摆件', '灯具'] },
-    { id: 'accessories', name: '配饰', subcategories: ['钥匙扣', '徽章', '首饰'] },
-    { id: 'digital', name: '移动设备/电脑相关', subcategories: ['手机壳', '充电器', '电脑配件'] },
-    { id: 'plush', name: '毛绒玩具', subcategories: ['公仔', '抱枕', '毛毯'] },
-    { id: 'others', name: '其他', subcategories: ['限定商品', '合作商品'] }
+    {
+      title: '手办 / 模型',
+      items: [
+        '所有手办/模型',
+        'PVC手办',
+        '可动手办',
+        '景品手办',
+        '粘土人',
+        '模型套件',
+        '迷你手办',
+        '限定手办',
+        '预售手办',
+      ],
+    },
+    {
+      title: '服装 / 配饰',
+      items: [
+        '所有服装/配饰',
+        'T恤',
+        '连帽衫',
+        '外套',
+        '帽子',
+        '包包',
+        '钱包',
+        '手表',
+        '首饰',
+      ],
+    },
+    {
+      title: '文具 / 杂货',
+      items: [
+        '所有文具/杂货',
+        '笔记本',
+        '文件夹',
+        '笔类',
+        '贴纸',
+        '徽章',
+        '钥匙扣',
+        '杯子',
+        '餐具',
+      ],
+    },
+    {
+      title: '游戏 / 玩具',
+      items: [
+        '所有游戏/玩具',
+        '卡牌游戏',
+        '桌游',
+        '拼图',
+        '毛绒玩具',
+        '积木',
+        '电子游戏',
+        '收藏卡',
+        '游戏周边',
+      ],
+    },
+    {
+      title: '漫画 / 书籍',
+      items: [
+        '所有漫画/书籍',
+        '单行本',
+        '画集',
+        '设定集',
+        '小说',
+        '攻略本',
+        '杂志',
+        '限定版',
+        '签名版',
+      ],
+    },
+    {
+      title: '数码 / 电子',
+      items: [
+        '所有数码/电子',
+        '手机壳',
+        '充电器',
+        '耳机',
+        '音响',
+        'USB设备',
+        '电脑配件',
+        '游戏机',
+        '智能设备',
+      ],
+    },
+    {
+      title: '家居 / 生活',
+      items: [
+        '所有家居/生活',
+        '抱枕',
+        '毛毯',
+        '床单',
+        '装饰品',
+        '收纳盒',
+        '台灯',
+        '挂画',
+        '生活用品',
+      ],
+    },
+    {
+      title: '限定 / 特别',
+      items: [
+        '所有限定/特别',
+        '会场限定',
+        '网店限定',
+        '预约限定',
+        '抽选商品',
+        '纪念商品',
+        '合作商品',
+        '特典商品',
+        '其他限定',
+      ],
+    },
   ];
 
   const filteredProducts = useMemo(() => {
@@ -126,7 +227,7 @@ const ProductList: React.FC = () => {
     const filters = [];
     if (searchQuery) filters.push({ type: 'search', label: `搜索: ${searchQuery}`, value: searchQuery });
     selectedCategories.forEach(cat => {
-      const categoryName = categoryData.find(c => c.id === cat)?.name || cat;
+      const categoryName = categoryData.find(c => c.title === cat)?.title || cat;
       filters.push({ type: 'category', label: categoryName, value: cat });
     });
     if (hasStock) filters.push({ type: 'stock', label: '有库存', value: 'stock' });
@@ -344,23 +445,23 @@ const ProductList: React.FC = () => {
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">类别</h3>
                   <div className="space-y-2">
                     {categoryData.map((cat) => (
-                      <div key={cat.id}>
+                      <div key={cat.title}>
                         <button
-                          onClick={() => toggleSection(cat.id)}
+                          onClick={() => toggleSection(cat.title)}
                           className="w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded"
                         >
-                          <span className="text-sm font-medium">{cat.name}</span>
-                          {expandedSections[cat.id] ? <Minus size={16} /> : <Plus size={16} />}
+                          <span className="text-sm font-medium">{cat.title}</span>
+                          {expandedSections[cat.title] ? <Minus size={16} /> : <Plus size={16} />}
                         </button>
-                        {expandedSections[cat.id] && (
+                        {expandedSections[cat.title] && (
                           <div className="ml-4 mt-2 space-y-1">
-                            {cat.subcategories.map((sub, index) => (
+                            {cat.items.map((item, index) => (
                               <a
                                 key={index}
-                                href="#"
+                                href={`/r/${encodeURIComponent(item)}`}
                                 className="block text-sm text-blue-600 hover:text-blue-800 py-1"
                               >
-                                {sub}
+                                {item}
                               </a>
                             ))}
                           </div>
@@ -374,15 +475,15 @@ const ProductList: React.FC = () => {
                 <div>
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">库存</h3>
                   <div className="border border-t-0 rounded-b p-3">
-                    <label className="flex items-center space-x-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={hasStock}
-                        onChange={(e) => setHasStock(e.target.checked)}
-                        className="form-checkbox text-red-600"
-                      />
-                      <span className="text-sm">有库存</span>
-                    </label>
+                    <button
+                      onClick={() => setHasStock(!hasStock)}
+                      className={`w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded ${
+                        hasStock ? 'bg-red-50 text-red-600' : ''
+                      }`}
+                    >
+                      <span className="text-sm font-medium">有库存</span>
+                      {hasStock ? <Minus size={16} /> : <Plus size={16} />}
+                    </button>
                   </div>
                 </div>
 
