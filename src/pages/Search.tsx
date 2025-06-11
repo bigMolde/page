@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 /**
  * 作品列表页面（按作品搜索）
  * 参考提供的案例进行设计，保持简洁专业的风格
+ * 修复布局重叠问题，确保适当的间距和对齐
  */
 const Search: React.FC = () => {
   const [selectedLetter, setSelectedLetter] = useState<string>('');
@@ -108,86 +109,91 @@ const Search: React.FC = () => {
   const allLetters = Object.keys(worksData).sort();
 
   return (
-    <main className="max-w-5xl mx-auto px-6 md:px-8 py-10 bg-white text-gray-900 antialiased">
-      {/* 主标题 */}
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8">作品列表</h1>
+    <div className="min-h-screen bg-gray-50">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-10 bg-white text-gray-900 antialiased">
+        {/* 主标题 */}
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">作品列表</h1>
+        </div>
 
-      {/* 拼音索引导航 */}
-      <nav className="mb-8">
-        <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium">
+        {/* 拼音索引导航 */}
+        <nav className="mb-10">
+          <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium">
+            {allLetters.map((letter) => (
+              <li key={letter}>
+                <a 
+                  href={`#${letter.toLowerCase()}-list`} 
+                  className={`hover:text-red-600 transition-colors ${
+                    selectedLetter === letter ? 'text-red-600 font-bold' : 'text-gray-700'
+                  }`}
+                  onClick={() => setSelectedLetter(letter)}
+                >
+                  {letter}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4 h-px bg-gray-200" />
+        </nav>
+
+        {/* 作品列表 */}
+        <div className="space-y-16">
           {allLetters.map((letter) => (
-            <li key={letter}>
-              <a 
-                href={`#${letter.toLowerCase()}-list`} 
-                className={`hover:text-red-600 transition-colors ${
-                  selectedLetter === letter ? 'text-red-600 font-bold' : 'text-gray-700'
-                }`}
-                onClick={() => setSelectedLetter(letter)}
-              >
-                {letter}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-3 h-px bg-gray-200" />
-      </nav>
-
-      {/* 作品列表 */}
-      <div className="space-y-14">
-        {allLetters.map((letter) => (
-          <section key={letter} id={`${letter.toLowerCase()}-list`} className="scroll-mt-8">
-            <h2 className="text-lg font-semibold mb-4 text-gray-900">
-              {letter} 开头
-            </h2>
-            
-            {/* 作品网格 */}
-            <div className="space-y-4">
-              {/* 将作品按每行4个分组 */}
-              {Array.from({ length: Math.ceil(worksData[letter].length / 4) }, (_, rowIndex) => (
-                <div key={rowIndex} className="py-4 border-b border-gray-200 last:border-b-0">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 text-sm">
-                    {worksData[letter]
-                      .slice(rowIndex * 4, (rowIndex + 1) * 4)
-                      .map((work, index) => (
-                        <Link
-                          key={index}
-                          to={`/r/${encodeURIComponent(work)}`}
-                          className="text-gray-700 hover:text-red-600 hover:underline transition-colors duration-200 py-1"
-                        >
-                          {work}
-                        </Link>
-                      ))}
+            <section key={letter} id={`${letter.toLowerCase()}-list`} className="scroll-mt-20">
+              <h2 className="text-lg font-semibold mb-6 text-gray-900">
+                {letter} 开头
+              </h2>
+              
+              {/* 作品网格 - 修复重叠问题 */}
+              <div className="space-y-6">
+                {/* 将作品按每行4个分组 */}
+                {Array.from({ length: Math.ceil(worksData[letter].length / 4) }, (_, rowIndex) => (
+                  <div key={rowIndex} className="border-b border-gray-200 last:border-b-0 pb-6 last:pb-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 text-sm">
+                      {worksData[letter]
+                        .slice(rowIndex * 4, (rowIndex + 1) * 4)
+                        .map((work, index) => (
+                          <div key={index} className="py-2">
+                            <Link
+                              to={`/r/${encodeURIComponent(work)}`}
+                              className="text-gray-700 hover:text-red-600 hover:underline transition-colors duration-200 block"
+                            >
+                              {work}
+                            </Link>
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
 
-      {/* 底部说明 */}
-      <div className="mt-16 pt-8 border-t border-gray-200">
-        <div className="text-center text-gray-600">
-          <p className="text-sm">
-            点击作品名称查看相关商品 • 共收录 {Object.values(worksData).flat().length} 部作品
-          </p>
-          <div className="mt-4 flex justify-center space-x-6">
-            <Link
-              to="/categories"
-              className="text-sm text-red-600 hover:text-red-700 transition-colors"
-            >
-              按类别搜索
-            </Link>
-            <Link
-              to="/new"
-              className="text-sm text-red-600 hover:text-red-700 transition-colors"
-            >
-              产品列表
-            </Link>
+        {/* 底部说明 */}
+        <div className="mt-20 pt-8 border-t border-gray-200">
+          <div className="text-center text-gray-600">
+            <p className="text-sm mb-4">
+              点击作品名称查看相关商品 • 共收录 {Object.values(worksData).flat().length} 部作品
+            </p>
+            <div className="flex justify-center space-x-6">
+              <Link
+                to="/categories"
+                className="text-sm text-red-600 hover:text-red-700 transition-colors"
+              >
+                按类别搜索
+              </Link>
+              <Link
+                to="/new"
+                className="text-sm text-red-600 hover:text-red-700 transition-colors"
+              >
+                产品列表
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 };
 
