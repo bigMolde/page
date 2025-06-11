@@ -208,7 +208,7 @@ const Categories: React.FC = () => {
                 style={{
                   border: '2px solid #000000', // pink-500
                   color: '#db2777', // pink-600
-                  backgroundColor: 'transparent'
+                  backgroundColor: '#dc2626'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#fdf2f8'; // pink-50
