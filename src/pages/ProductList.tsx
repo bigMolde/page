@@ -488,11 +488,11 @@ const ProductList: React.FC = () => {
           {/* 左侧过滤栏 - 调整宽度为280px */}
           {showFilters && (
             <aside className="w-70 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen" style={{ width: '280px' }}>
-              <div className="p-6 space-y-6">
+              <div className="space-y-6">
                 
-                {/* 作品名称（按首字母检索） - 统一背景色为#F6DFDE，调整尺寸对齐 */}
+                {/* 作品名称（按首字母检索） - 统一左右外边距 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-4 py-3 text-sm">作品名称</h3>
+                  <h3 className="font-semibold text-white bg-red-600 text-sm" style={{ margin: '0 16px', padding: '12px 16px' }}>作品名称</h3>
                   <div className="space-y-1">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
@@ -502,6 +502,7 @@ const ProductList: React.FC = () => {
                           style={{
                             backgroundColor: isKanaTitleHighlighted(kana) ? '#F6DFDE' : 'transparent',
                             borderRadius: '0px',
+                            margin: '0 16px',
                             paddingTop: '12px',
                             paddingBottom: '12px',
                             paddingLeft: '16px',
@@ -512,16 +513,17 @@ const ProductList: React.FC = () => {
                           {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedKanaRows[kana] && worksInKana.length > 0 && (
-                          <div className="ml-3 mt-1 space-y-1">
+                          <div className="mt-1 space-y-1">
                             {worksInKana.map(work => (
                               <label
                                 key={work}
                                 className="flex items-center cursor-pointer"
                                 style={{
                                   backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
+                                  margin: '0 16px',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
-                                  paddingLeft: '16px',
+                                  paddingLeft: '32px',
                                   paddingRight: '16px'
                                 }}
                               >
@@ -548,9 +550,9 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 - 统一背景色为#F6DFDE，调整尺寸对齐 */}
+                {/* 分类过滤 - 统一左右外边距 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-4 py-3 text-sm">类别</h3>
+                  <h3 className="font-semibold text-white bg-red-600 text-sm" style={{ margin: '0 16px', padding: '12px 16px' }}>类别</h3>
                   <div className="space-y-1">
                     {categoryData.map((cat) => (
                       <div key={cat.title}>
@@ -560,7 +562,8 @@ const ProductList: React.FC = () => {
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent',
                             borderRadius: '0px',
-                            paddingTop: '5px',
+                            margin: '0 16px',
+                            paddingTop: '12px',
                             paddingBottom: '12px',
                             paddingLeft: '16px',
                             paddingRight: '16px'
@@ -570,16 +573,17 @@ const ProductList: React.FC = () => {
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
-                          <div className="ml-3 mt-1 space-y-1">
+                          <div className="mt-1 space-y-1">
                             {cat.items.map((item, index) => (
                               <label
                                 key={index}
                                 className="flex items-center cursor-pointer"
                                 style={{
                                   backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
+                                  margin: '0 16px',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
-                                  paddingLeft: '16px',
+                                  paddingLeft: '32px',
                                   paddingRight: '16px'
                                 }}
                               >
@@ -608,7 +612,7 @@ const ProductList: React.FC = () => {
 
                 {/* 库存状态 - 简化为两个选择 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-4 py-3 text-sm">库存</h3>
+                  <h3 className="font-semibold text-white bg-red-600 text-sm" style={{ margin: '0 16px', padding: '12px 16px' }}>库存</h3>
                   <div className="border border-t-0 p-3 space-y-2">
                     <button
                       onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
