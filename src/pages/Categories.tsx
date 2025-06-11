@@ -184,7 +184,7 @@ const Categories: React.FC = () => {
               找不到您想要的商品？
             </h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              您可以使用搜索功能或浏览新品列表来发现更多商品
+              您可以使用搜索功能或浏览产品列表来发现更多商品
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
