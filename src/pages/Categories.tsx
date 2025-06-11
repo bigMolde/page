@@ -122,7 +122,7 @@ const Categories: React.FC = () => {
     <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* 页面标题 - 调整行距为1.25 */}
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-10" style={{ lineHeight: '1.5' }}>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-10" style={{ lineHeight: '2.5' }}>
           商品类别一览
         </h1>
 
