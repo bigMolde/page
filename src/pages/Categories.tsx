@@ -136,7 +136,7 @@ const Categories: React.FC = () => {
             >
               {/* 一级标题：粉色背景，白色文字 */}
               <h2 
-                className="inline-block text-left font-semibold text-lg px-9 py-2 rounded-lg "
+                className="inline-block text-left font-semibold text-lg px-1 py-2 rounded-lg "
                 style={{ 
                   backgroundColor: '#F6DFDE', 
                   color: '#000000' 
