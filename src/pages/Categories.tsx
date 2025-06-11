@@ -131,20 +131,20 @@ const Categories: React.FC = () => {
           {categoryData.map(({ title, items }) => (
             <div        /* 每列容器：纵向排列并整体居中 */
               key={title}
-              className="flex flex-col items-center text-center"
+              className="flex flex-col items-center text-center bg-white rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
             >
-              {/* 一级标题：红色背景，居中白字 */}
-              <h2 className="w-full bg-rose-50 text-gray-900 font-semibold text-lg px-4 py-2 rounded-lg">
+              {/* 一级标题：红色背景，白色文字 */}
+              <h2 className="w-full bg-red-600 text-white font-semibold text-lg px-4 py-3 text-center">
                 {title}
               </h2>
 
               {/* 二级列表：无圆点，增大行距，居中 */}
-              <ul className="mt-4 space-y-3 list-none text-sm text-gray-800">
+              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800">
                 {items.map(item => (
                   <li key={item}>
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="hover:text-red-600 transition-colors"
+                      className="block hover:text-red-600 hover:bg-red-50 px-2 py-1 rounded transition-colors"
                     >
                       {item}
                     </Link>
