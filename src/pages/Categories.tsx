@@ -134,19 +134,19 @@ const Categories: React.FC = () => {
               className="flex flex-col items-center text-center rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
               style={{ backgroundColor: '#ffffff' }}
             >
-              {/* 一级标题：粉色背景，白色文字 */}
+              {/* 一级标题：调整宽度和样式 */}
               <h2 
-                className="inline-block mx-auto font-semibold text-lg px-40 py-2 rounded-lg "
+                className="w-full font-semibold text-lg px-6 py-4"
                 style={{ 
                   backgroundColor: '#F6DFDE', 
-                  color: '#000000' 
+                  color: '#374151' 
                 }}
               >
                 {title}
               </h2>
 
-              {/* 二级列表：无圆点，增大行距，居中 */}
-              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800 ">
+              {/* 二级列表：去除圆点，增大行距，居中 */}
+              <ul className="w-full px-4 py-4 space-y-3 text-sm text-gray-800" style={{ listStyle: 'none' }}>
                 {items.map(item => (
                   <li key={item}>
                     <Link
