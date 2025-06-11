@@ -134,7 +134,7 @@ const Categories: React.FC = () => {
               className="flex flex-col items-center text-center bg-white rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
             >
               {/* 一级标题：粉色背景，白色文字 */}
-              <h2 className="w-full bg-pink-600 text-white font-semibold text-lg px-4 py-3 text-center">
+              <h2 className="w-full bg-pink-300 text-white font-semibold text-lg px-4 py-3">
                 {title}
               </h2>
 
