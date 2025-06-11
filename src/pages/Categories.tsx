@@ -131,7 +131,7 @@ const Categories: React.FC = () => {
           {categoryData.map(({ title, items }) => (
             <div key={title} className="flex flex-col items-center text-center">
               {/* 一级标题：红底白字 */}
-              <h2 className="w-full bg-rose-500 text-white font-semibold text-lg px-4 py-2 rounded-lg">
+              <h2 className="w-full bg-pink-300 text-white font-semibold text-lg px-4 py-2 rounded-lg">
                 {title}
               </h2>
 
