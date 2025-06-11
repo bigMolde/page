@@ -558,7 +558,7 @@ const ProductList: React.FC = () => {
                                 key={index}
                                 className="flex items-center cursor-pointer"
                                 style={{
-                                  backgroundColor: selectedCategories.includes(item) ? '#E33D3D' : 'transparent',
+                                  backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
                                   paddingTop: '8px',
                                   paddingBottom: '8px',
                                   paddingLeft: '12px',
