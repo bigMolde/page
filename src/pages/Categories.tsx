@@ -201,23 +201,24 @@ const Categories: React.FC = () => {
                 }}
               >
                 关键词搜索
-              <Link
-                to="/new"
-                className="px-8 py-3 rounded-lg font-semibold transition"
-                style={{
-                  border: '2px solid #dc2626',
-                  color: '#000',              // ← 文字改黑色
-                  backgroundColor: 'transparent',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#fdf2f8';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
-              >
-                新品列表
               </Link>
+<Link
+  to="/new"
+  className="px-8 py-3 rounded-lg font-semibold transition"
+  style={{
+    border: '2px solid #dc2626',
+    color: '#000',              // ← 文字改黑色
+    backgroundColor: 'transparent',
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.backgroundColor = '#fdf2f8';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.backgroundColor = 'transparent';
+  }}
+>
+  新品列表
+</Link>
 
             </div>
           </div>
