@@ -490,9 +490,18 @@ const ProductList: React.FC = () => {
             <aside className="w-70 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen" style={{ width: '280px' }}>
               <div className="space-y-6">
                 
-                {/* 作品名称（按首字母检索） - 统一左右外边距 */}
+                {/* 作品名称（按首字母检索） - 修正左右外边距对齐 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 text-sm" style={{ margin: '0 16px', padding: '12px 16px' }}>作品名称</h3>
+                  <h3 
+                    className="font-semibold text-white bg-red-600 text-sm" 
+                    style={{ 
+                      marginLeft: '16px', 
+                      marginRight: '16px', 
+                      padding: '12px 16px' 
+                    }}
+                  >
+                    作品名称
+                  </h3>
                   <div className="space-y-1">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
@@ -502,11 +511,13 @@ const ProductList: React.FC = () => {
                           style={{
                             backgroundColor: isKanaTitleHighlighted(kana) ? '#F6DFDE' : 'transparent',
                             borderRadius: '0px',
-                            margin: '0 16px',
+                            marginLeft: '16px',
+                            marginRight: '16px',
                             paddingTop: '12px',
                             paddingBottom: '12px',
                             paddingLeft: '16px',
-                            paddingRight: '16px'
+                            paddingRight: '16px',
+                            width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
                           }}
                         >
                           <span className="text-xs font-medium text-left text-black">{kana}</span>
@@ -520,11 +531,13 @@ const ProductList: React.FC = () => {
                                 className="flex items-center cursor-pointer"
                                 style={{
                                   backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
-                                  margin: '0 16px',
+                                  marginLeft: '16px',
+                                  marginRight: '16px',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
                                   paddingLeft: '32px',
-                                  paddingRight: '16px'
+                                  paddingRight: '16px',
+                                  width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
                                 }}
                               >
                                 <input
@@ -550,9 +563,18 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 - 统一左右外边距 */}
+                {/* 分类过滤 - 修正左右外边距对齐 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 text-sm" style={{ margin: '0 16px', padding: '12px 16px' }}>类别</h3>
+                  <h3 
+                    className="font-semibold text-white bg-red-600 text-sm" 
+                    style={{ 
+                      marginLeft: '16px', 
+                      marginRight: '16px', 
+                      padding: '12px 16px' 
+                    }}
+                  >
+                    类别
+                  </h3>
                   <div className="space-y-1">
                     {categoryData.map((cat) => (
                       <div key={cat.title}>
@@ -562,11 +584,13 @@ const ProductList: React.FC = () => {
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent',
                             borderRadius: '0px',
-                            margin: '0 16px',
+                            marginLeft: '16px',
+                            marginRight: '16px',
                             paddingTop: '12px',
                             paddingBottom: '12px',
                             paddingLeft: '16px',
-                            paddingRight: '16px'
+                            paddingRight: '16px',
+                            width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
                           }}
                         >
                           <span className="text-xs font-medium text-left text-black">{cat.title}</span>
@@ -580,11 +604,13 @@ const ProductList: React.FC = () => {
                                 className="flex items-center cursor-pointer"
                                 style={{
                                   backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
-                                  margin: '0 16px',
+                                  marginLeft: '16px',
+                                  marginRight: '16px',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
                                   paddingLeft: '32px',
-                                  paddingRight: '16px'
+                                  paddingRight: '16px',
+                                  width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
                                 }}
                               >
                                 <input
@@ -612,7 +638,16 @@ const ProductList: React.FC = () => {
 
                 {/* 库存状态 - 简化为两个选择 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 text-sm" style={{ margin: '0 16px', padding: '12px 16px' }}>库存</h3>
+                  <h3 
+                    className="font-semibold text-white bg-red-600 text-sm" 
+                    style={{ 
+                      marginLeft: '16px', 
+                      marginRight: '16px', 
+                      padding: '12px 16px' 
+                    }}
+                  >
+                    库存
+                  </h3>
                   <div className="border border-t-0 p-3 space-y-2">
                     <button
                       onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
