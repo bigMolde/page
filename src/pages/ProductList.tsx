@@ -543,7 +543,7 @@ const ProductList: React.FC = () => {
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 "
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#E33D3D' : 'transparent'
                           }}
