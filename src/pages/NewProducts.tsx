@@ -48,7 +48,7 @@ const NewProducts: React.FC = () => {
           <nav className="text-sm">
             <span className="text-gray-500">首页</span>
             <span className="mx-2 text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">新品列表</span>
+            <span className="text-gray-900 font-medium">产品列表</span>
           </nav>
         </div>
 
