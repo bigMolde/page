@@ -75,7 +75,7 @@ const Header: React.FC = () => {
 
           {/* Right side icons */}
           <div className="header-actions">
-            {/* Mobile search button - 关键词搜索 */}
+            {/* Mobile search button - 按作品搜索 */}
             <button 
               className="header-icon-button md:hidden"
               onClick={() => navigate('/search')}
