@@ -381,6 +381,11 @@ const ProductList: React.FC = () => {
           </nav>
         </div>
 
+        {/* 详情检索标题 */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">详情检索</h1>
+        </div>
+
         {/* 搜索框 */}
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
           <div className="flex items-center space-x-2">
@@ -399,27 +404,27 @@ const ProductList: React.FC = () => {
           </div>
         </div>
 
-        {/* Header */}
+        {/* 检索结果和排序 */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
-              <p className="text-gray-600">{filteredProducts.length} 件商品</p>
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">检索结果</h2>
+              <p className="text-gray-600">{filteredProducts.length} 个结果</p>
             </div>
             
             <div className="flex items-center space-x-4 mt-4 lg:mt-0">
               {/* Sort */}
               <div className="flex items-center space-x-2">
-                <SortAsc size={20} className="text-gray-600" />
+                <span className="text-sm text-gray-600">排序：</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
+                  <option value="newest">按发布日期</option>
+                  <option value="price-high">价格（从高到低）</option>
+                  <option value="price-low">价格（从低到高）</option>
                   <option value="default">推荐排序</option>
-                  <option value="newest">最新上架</option>
-                  <option value="price-low">价格从低到高</option>
-                  <option value="price-high">价格从高到低</option>
                   <option value="rating">评分最高</option>
                   <option value="name">商品名称</option>
                 </select>
