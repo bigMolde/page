@@ -542,12 +542,12 @@ const ProductList: React.FC = () => {
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded-none "
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50  "
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent'
                           }}
                         >
-                          <span className="text-xs font-medium text-left text-black">{cat.title}</span>
+                          <span className="text-xs font-medium text-left text-black rounded-none ">{cat.title}</span>
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
