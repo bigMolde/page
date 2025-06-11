@@ -310,7 +310,7 @@ const ProductList: React.FC = () => {
                 
                 {/* 作品名称（按首字母检索） */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">作品名称</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">作品名称</h3>
                   <div className="space-y-2">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
