@@ -442,7 +442,7 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 - 调整字体大小 */}
+                {/* 分类过滤 - 调整字体大小并添加选择框 */}
                 <div>
                   <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">类别</h3>
                   <div className="space-y-1">
@@ -456,15 +456,22 @@ const ProductList: React.FC = () => {
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
-                          <div className="ml-3 mt-1 space-y-0.5">
+                          <div className="ml-3 mt-1 space-y-2">
                             {cat.items.map((item, index) => (
-                              <a
+                              <label
                                 key={index}
-                                href={`/r/${encodeURIComponent(item)}`}
-                                className="block text-xs text-blue-600 hover:text-blue-800 py-0.5 text-left"
+                                className="flex items-center py-1 px-2 hover:bg-gray-50 rounded cursor-pointer"
                               >
-                                {item}
-                              </a>
+                                <input
+                                  type="checkbox"
+                                  checked={selectedCategories.includes(item)}
+                                  onChange={() => toggleCategory(item)}
+                                  className="form-checkbox text-red-600 mr-2 w-3 h-3"
+                                />
+                                <span className="text-xs text-gray-700 text-left">
+                                  {item}
+                                </span>
+                              </label>
                             ))}
                           </div>
                         )}
