@@ -529,7 +529,7 @@ const ProductList: React.FC = () => {
 
                 {/* 分类过滤 - 调整字体大小并添加选择框 */}
                 <div>
-                  <h3 className="font-semibold text-white ##F6DFDE px-3 py-2 rounded-t text-sm">类别</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">类别</h3>
                   <div className="space-y-1">
                     {categoryData.map((cat) => (
                       <div key={cat.title}>
@@ -539,7 +539,7 @@ const ProductList: React.FC = () => {
                             isCategoryTitleHighlighted(cat.title) ? 'text-white' : ''
                           }`}
                           style={{
-                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#E33D3D' : 'transparent'
+                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent'
                           }}
                         >
                           <span className="text-xs font-medium text-left">{cat.title}</span>
@@ -552,7 +552,7 @@ const ProductList: React.FC = () => {
                                 key={index}
                                 className="flex items-center py-1 px-2 hover:bg-gray-50 rounded cursor-pointer"
                                 style={{
-                                  backgroundColor: selectedCategories.includes(item) ? '#E33D3D' : 'transparent'
+                                  backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent'
                                 }}
                               >
                                 <input
