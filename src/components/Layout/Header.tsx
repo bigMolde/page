@@ -37,7 +37,7 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <Link to="/new" className="nav-link">
-                  新品列表
+                  产品列表
                 </Link>
               </li>
             </ul>
