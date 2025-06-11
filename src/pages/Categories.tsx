@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Categories: React.FC = () => {
-  /** 分类数据 */
+ /** 分类数据 */
   const categoryData = [
     {
       title: '手办 / 模型',
@@ -119,9 +119,9 @@ const Categories: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* 页面主标题 */}
+        {/* 页面标题 */}
         <h1 className="text-4xl font-extrabold text-gray-900 mb-10">
           商品类别一览
         </h1>
@@ -129,19 +129,40 @@ const Categories: React.FC = () => {
         {/* 分类栅格 */}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {categoryData.map(({ title, items }) => (
-            <div key={title} className="flex flex-col items-center text-center">
-              {/* 一级标题：红底白字 */}
-              <h2 className="w-full bg-pink-300 text-white font-semibold text-lg px-4 py-2 rounded-lg">
+            <div
+              key={title}
+              className="flex flex-col items-center text-center rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
+              style={{ backgroundColor: '#ffffff' }}
+            >
+              {/* 一级标题：粉色背景，白色文字 */}
+              <h2 
+                className="w-full font-semibold text-lg px-4 py-3"
+                style={{ 
+                  backgroundColor: '#fdf2f8', // pink-300
+                  color: '#ffffff' 
+                }}
+              >
                 {title}
               </h2>
 
-              {/* 二级条目：去圆点、加间距、居中 */}
-              <ul className="mt-4 list-none space-y-3 text-sm text-gray-800">
-                {items.map((item) => (
+              {/* 二级列表：无圆点，增大行距，居中 */}
+              <ul className="w-full px-4 py-4 space-y-3 list-none text-sm text-gray-800">
+                {items.map(item => (
                   <li key={item}>
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="hover:text-red-600 transition-colors"
+                      className="block px-2 py-1 rounded transition-colors"
+                      style={{
+                        color: '#374151'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#db2777'; // pink-600
+                        e.currentTarget.style.backgroundColor = '#fdf2f8'; // pink-50
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = '#374151';
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }}
                     >
                       {item}
                     </Link>
@@ -154,7 +175,10 @@ const Categories: React.FC = () => {
 
         {/* 底部引导区 */}
         <div className="mt-16 text-center">
-          <div className="bg-white rounded-lg shadow-sm ring-1 ring-gray-100 p-8">
+          <div 
+            className="rounded-lg shadow-sm ring-1 ring-gray-100 p-8"
+            style={{ backgroundColor: '#ffffff' }}
+          >
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               找不到您想要的商品？
             </h2>
@@ -164,13 +188,34 @@ const Categories: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/search"
-                className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
+                className="px-8 py-3 rounded-lg font-semibold transition"
+                style={{
+                  backgroundColor: '#ec4899', // pink-500
+                  color: '#ffffff'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#db2777'; // pink-600
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ec4899'; // pink-500
+                }}
               >
                 关键词搜索
               </Link>
               <Link
                 to="/new"
-                className="border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition"
+                className="px-8 py-3 rounded-lg font-semibold transition"
+                style={{
+                  border: '2px solid #ec4899', // pink-500
+                  color: '#db2777', // pink-600
+                  backgroundColor: 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fdf2f8'; // pink-50
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
               >
                 新品列表
               </Link>
