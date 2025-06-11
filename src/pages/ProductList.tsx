@@ -14,33 +14,80 @@ const ProductList: React.FC = () => {
   // 搜索和过滤状态
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedWorks, setSelectedWorks] = useState<string[]>([]);
   const [stockFilter, setStockFilter] = useState<'all' | 'inStock' | 'includeOutOfStock'>('all');
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({});
   const [expandedKanaRows, setExpandedKanaRows] = useState<{[key: string]: boolean}>({});
 
-  // 按假名分组的作品数据
-  const worksByKana = useMemo(() => {
-    const kanaGroups: {[key: string]: typeof works} = {
-      'A': [],
-      'K': [],
-      'S': [],
-      'T': [],
-      'N': [],
-      'H': [],
-      'M': [],
-      'Y': [],
-      'R': [],
-      'W': []
-    };
+  // 完整的作品列表
+  const allWorks = [
+    '阿基拉', '阿松', '暗杀教室', '进击的巨人', '鬼灭之刃', '火影忍者', '海贼王', '死神', '名侦探柯南', '钢之炼金术师',
+    '工作细胞', '排球少年！！', '黑执事', '黑色五叶草', 'JOJO的奇妙冒险', '灵能百分百', '拳愿阿修罗', '境界触发者', '境界的彼方', '魔法少女小圆',
+    '魔卡少女樱', '秒速五厘米', '言叶之庭', '千与千寻', '天空之城', '龙猫', '萤火虫之墓', '天气之子', '星之声', '数码宝贝大冒险',
+    '口袋妖怪', '妄想学生会', '日常', '银魂', '为美好的世界献上祝福！', 'Re:从零开始的异世界生活', '刀剑神域', '加速世界', '赛马娘Pretty Derby', '紫罗兰永恒花园',
+    '约定的梦幻岛', '四月是你的谎言', '乐园追放', '未来日记', '斩！赤红之瞳', '刀剑乱舞 花丸', 'Fate/Zero', 'Fate/stay night［Unlimited Blade Works］', 'Fate/Apocrypha', 'Fate/Grand Order ‑绝对魔兽战线巴比伦尼亚‑',
+    '干物妹！小埋', '摇曳露营△', '轻音少女', '中二病也要谈恋爱！', '花开伊吕波', '狼与香辛料', '兽娘动物园', '青春猪头少年不会梦到兔女郎学姐', '物语系列', '东京喰种',
+    '异度侵入', '心理测量者', '进化之实踏上胜利的人生', '文豪野犬', '缘之空', '未闻花名', '彼方的阿斯特拉', '来自新世界', '七大罪', '白箱',
+    '工作细胞BLACK', '宝可梦旅途', '哆啦A梦', '蜡笔小新', '樱桃小丸子', '美少女战士', '忍者乱太郎', '足球小将', '灌篮高手', '网球王子',
+    '甲铁城的卡巴内瑞', '银河铁道999', '机动战士高达UC', '新世纪福音战士', '机动战士高达SEED', '交响诗篇', '天元突破红莲螺岩', '高分少女', 'Love Live! Sunshine!!', 'BanG Dream!',
+    '歌之王子殿下', '永生之酒', '无头骑士异闻录', '灼眼的夏娜', '旋风管家', '零之使魔', '只要长得可爱即使是变态你也喜欢吗？', '辉夜大小姐想让我告白', '间谍过家家', '记录的地平线'
+  ];
 
-    works.forEach(work => {
-      const firstChar = work.kana.charAt(0).toUpperCase();
-      if (kanaGroups[firstChar]) {
-        kanaGroups[firstChar].push(work);
+  // 按首字母分组作品
+  const worksByKana = useMemo(() => {
+    const kanaGroups: {[key: string]: string[]} = {};
+
+    allWorks.forEach(work => {
+      const firstChar = work.charAt(0);
+      // 根据中文首字母分组
+      let kanaKey = '';
+      
+      if (['阿'].includes(firstChar)) kanaKey = 'A';
+      else if (['暗', '安'].includes(firstChar)) kanaKey = 'A';
+      else if (['进'].includes(firstChar)) kanaKey = 'J';
+      else if (['鬼'].includes(firstChar)) kanaKey = 'G';
+      else if (['火', '海', '黑', '花'].includes(firstChar)) kanaKey = 'H';
+      else if (['死'].includes(firstChar)) kanaKey = 'S';
+      else if (['名'].includes(firstChar)) kanaKey = 'M';
+      else if (['钢', '工', '高'].includes(firstChar)) kanaKey = 'G';
+      else if (['排'].includes(firstChar)) kanaKey = 'P';
+      else if (['J', 'L', 'R', 'F', 'B'].includes(firstChar)) kanaKey = firstChar;
+      else if (['灵'].includes(firstChar)) kanaKey = 'L';
+      else if (['拳', '境'].includes(firstChar)) kanaKey = 'Q';
+      else if (['魔'].includes(firstChar)) kanaKey = 'M';
+      else if (['秒', '言'].includes(firstChar)) kanaKey = 'M';
+      else if (['千', '天', '龙', '萤'].includes(firstChar)) kanaKey = 'T';
+      else if (['星', '数'].includes(firstChar)) kanaKey = 'S';
+      else if (['口'].includes(firstChar)) kanaKey = 'K';
+      else if (['妄', '日', '银', '为'].includes(firstChar)) kanaKey = 'W';
+      else if (['刀'].includes(firstChar)) kanaKey = 'D';
+      else if (['加', '赛', '紫'].includes(firstChar)) kanaKey = 'J';
+      else if (['约', '四', '乐', '未', '斩'].includes(firstChar)) kanaKey = 'Y';
+      else if (['干', '摇', '轻', '中'].includes(firstChar)) kanaKey = 'G';
+      else if (['狼', '兽', '青', '物'].includes(firstChar)) kanaKey = 'L';
+      else if (['东', '异', '心', '进', '文', '缘'].includes(firstChar)) kanaKey = 'D';
+      else if (['彼', '来', '七', '白'].includes(firstChar)) kanaKey = 'B';
+      else if (['宝', '哆', '蜡', '樱', '美', '忍', '足', '灌', '网'].includes(firstChar)) kanaKey = 'B';
+      else if (['甲', '银', '机', '新', '交'].includes(firstChar)) kanaKey = 'J';
+      else if (['歌', '永', '无', '灼', '旋', '零', '只', '辉', '间', '记'].includes(firstChar)) kanaKey = 'G';
+      
+      if (kanaKey && !kanaGroups[kanaKey]) {
+        kanaGroups[kanaKey] = [];
+      }
+      if (kanaKey) {
+        kanaGroups[kanaKey].push(work);
       }
     });
 
-    return kanaGroups;
+    // 只返回有作品的分组
+    const filteredGroups: {[key: string]: string[]} = {};
+    Object.keys(kanaGroups).forEach(key => {
+      if (kanaGroups[key].length > 0) {
+        filteredGroups[key] = kanaGroups[key].sort();
+      }
+    });
+
+    return filteredGroups;
   }, []);
 
   // 分类数据 - 对应Categories.tsx的结构
@@ -193,6 +240,13 @@ const ProductList: React.FC = () => {
       );
     }
 
+    // 作品过滤
+    if (selectedWorks.length > 0) {
+      filtered = filtered.filter(product => 
+        selectedWorks.some(work => product.work === work)
+      );
+    }
+
     // 库存过滤
     if (stockFilter === 'inStock') {
       filtered = filtered.filter(product => product.stock_quantity > 0);
@@ -221,15 +275,17 @@ const ProductList: React.FC = () => {
     }
 
     return filtered;
-  }, [category, series, sortBy, searchQuery, selectedCategories, stockFilter]);
+  }, [category, series, sortBy, searchQuery, selectedCategories, selectedWorks, stockFilter]);
 
   // 获取当前筛选标签
   const getActiveFilters = () => {
     const filters = [];
     if (searchQuery) filters.push({ type: 'search', label: `搜索: ${searchQuery}`, value: searchQuery });
     selectedCategories.forEach(cat => {
-      const categoryName = categoryData.find(c => c.title === cat)?.title || cat;
-      filters.push({ type: 'category', label: categoryName, value: cat });
+      filters.push({ type: 'category', label: cat, value: cat });
+    });
+    selectedWorks.forEach(work => {
+      filters.push({ type: 'work', label: work, value: work });
     });
     if (stockFilter === 'inStock') filters.push({ type: 'stock', label: '有库存', value: 'inStock' });
     if (stockFilter === 'includeOutOfStock') filters.push({ type: 'stock', label: '包括无库存', value: 'includeOutOfStock' });
@@ -243,6 +299,9 @@ const ProductList: React.FC = () => {
         break;
       case 'category':
         setSelectedCategories(prev => prev.filter(cat => cat !== value));
+        break;
+      case 'work':
+        setSelectedWorks(prev => prev.filter(work => work !== value));
         break;
       case 'stock':
         setStockFilter('all');
@@ -270,6 +329,20 @@ const ProductList: React.FC = () => {
         ? prev.filter(id => id !== categoryId)
         : [...prev, categoryId]
     );
+  };
+
+  const toggleWork = (work: string) => {
+    setSelectedWorks(prev => 
+      prev.includes(work) 
+        ? prev.filter(w => w !== work)
+        : [...prev, work]
+    );
+  };
+
+  // 检查分类标题是否应该高亮
+  const isCategoryTitleHighlighted = (categoryTitle: string) => {
+    const category = categoryData.find(cat => cat.title === categoryTitle);
+    return category?.items.some(item => selectedCategories.includes(item)) || false;
   };
 
   const getPageTitle = () => {
@@ -425,15 +498,27 @@ const ProductList: React.FC = () => {
                           {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedKanaRows[kana] && worksInKana.length > 0 && (
-                          <div className="ml-3 mt-1 space-y-0.5">
+                          <div className="ml-3 mt-1 space-y-1">
                             {worksInKana.map(work => (
-                              <a
-                                key={work.id}
-                                href={`/r/${work.name}`}
-                                className="block text-xs text-blue-600 hover:text-blue-800 py-0.5 text-left"
+                              <label
+                                key={work}
+                                className="flex items-center py-1 px-2 hover:bg-gray-50 rounded cursor-pointer"
                               >
-                                {work.name}
-                              </a>
+                                <input
+                                  type="checkbox"
+                                  checked={selectedWorks.includes(work)}
+                                  onChange={() => toggleWork(work)}
+                                  className="mr-2"
+                                  style={{
+                                    width: '12px',
+                                    height: '12px',
+                                    accentColor: '#E33D3D'
+                                  }}
+                                />
+                                <span className="text-xs text-gray-700 text-left">
+                                  {work}
+                                </span>
+                              </label>
                             ))}
                           </div>
                         )}
@@ -450,25 +535,43 @@ const ProductList: React.FC = () => {
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded"
+                          className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
+                            isCategoryTitleHighlighted(cat.title) ? 'text-white' : ''
+                          }`}
+                          style={{
+                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#E33D3D' : 'transparent'
+                          }}
                         >
                           <span className="text-xs font-medium text-left">{cat.title}</span>
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
-                          <div className="ml-3 mt-1 space-y-13">
+                          <div className="ml-3 mt-1 space-y-2">
                             {cat.items.map((item, index) => (
                               <label
                                 key={index}
                                 className="flex items-center py-1 px-2 hover:bg-gray-50 rounded cursor-pointer"
+                                style={{
+                                  backgroundColor: selectedCategories.includes(item) ? '#E33D3D' : 'transparent'
+                                }}
                               >
                                 <input
                                   type="checkbox"
                                   checked={selectedCategories.includes(item)}
                                   onChange={() => toggleCategory(item)}
-                                  className="form-checkbox text-red-600 mr-2 w-3 h-3"
+                                  className="mr-2"
+                                  style={{
+                                    width: '12px',
+                                    height: '12px',
+                                    accentColor: '#E33D3D'
+                                  }}
                                 />
-                                <span className="text-xs text-gray-700 text-left">
+                                <span 
+                                  className="text-xs text-left"
+                                  style={{
+                                    color: selectedCategories.includes(item) ? 'white' : '#374151'
+                                  }}
+                                >
                                   {item}
                                 </span>
                               </label>
