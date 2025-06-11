@@ -119,7 +119,7 @@ const Categories: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* 页面标题 */}
         <h1 className="text-4xl font-extrabold text-gray-900 mb-10">
@@ -129,12 +129,19 @@ const Categories: React.FC = () => {
         {/* 分类栅格 */}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {categoryData.map(({ title, items }) => (
-            <div        /* 每列容器：纵向排列并整体居中 */
+            <div
               key={title}
-              className="flex flex-col items-center text-center bg-white rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
+              className="flex flex-col items-center text-center rounded-lg shadow-sm ring-1 ring-gray-100 overflow-hidden"
+              style={{ backgroundColor: '#ffffff' }}
             >
               {/* 一级标题：粉色背景，白色文字 */}
-              <h2 className="w-full bg-pink-300 text-white font-semibold text-lg px-4 py-3">
+              <h2 
+                className="w-full font-semibold text-lg px-4 py-3"
+                style={{ 
+                  backgroundColor: '#f9a8d4', // pink-300
+                  color: '#ffffff' 
+                }}
+              >
                 {title}
               </h2>
 
@@ -144,7 +151,18 @@ const Categories: React.FC = () => {
                   <li key={item}>
                     <Link
                       to={`/r/${encodeURIComponent(item)}`}
-                      className="block hover:text-pink-600 hover:bg-pink-50 px-2 py-1 rounded transition-colors"
+                      className="block px-2 py-1 rounded transition-colors"
+                      style={{
+                        color: '#374151'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#db2777'; // pink-600
+                        e.currentTarget.style.backgroundColor = '#fdf2f8'; // pink-50
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = '#374151';
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }}
                     >
                       {item}
                     </Link>
@@ -157,7 +175,10 @@ const Categories: React.FC = () => {
 
         {/* 底部引导区 */}
         <div className="mt-16 text-center">
-          <div className="bg-white rounded-lg shadow-sm ring-1 ring-gray-100 p-8">
+          <div 
+            className="rounded-lg shadow-sm ring-1 ring-gray-100 p-8"
+            style={{ backgroundColor: '#ffffff' }}
+          >
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               找不到您想要的商品？
             </h2>
@@ -167,13 +188,34 @@ const Categories: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/search"
-                className="bg-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-600 transition"
+                className="px-8 py-3 rounded-lg font-semibold transition"
+                style={{
+                  backgroundColor: '#ec4899', // pink-500
+                  color: '#ffffff'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#db2777'; // pink-600
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ec4899'; // pink-500
+                }}
               >
                 关键词搜索
               </Link>
               <Link
                 to="/new"
-                className="border-2 border-pink-500 text-pink-600 px-8 py-3 rounded-lg font-semibold hover:bg-pink-50 transition"
+                className="px-8 py-3 rounded-lg font-semibold transition"
+                style={{
+                  border: '2px solid #ec4899', // pink-500
+                  color: '#db2777', // pink-600
+                  backgroundColor: 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fdf2f8'; // pink-50
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
               >
                 新品列表
               </Link>
