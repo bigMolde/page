@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Categories: React.FC = () => {
- /** 分类数据 */
+ /** 按类别数据 */
   const categoryData = [
     {
       title: '手办 / 模型',
