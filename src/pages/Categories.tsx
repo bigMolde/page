@@ -139,7 +139,7 @@ const Categories: React.FC = () => {
                 className="w-full font-semibold text-lg px-4 py-3 rounded-lg"
                 style={{ 
                   backgroundColor: '#F6DFDE', 
-                  color: '#ffffff' 
+                  color: '#000000' 
                 }}
               >
                 {title}
