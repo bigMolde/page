@@ -308,9 +308,9 @@ const ProductList: React.FC = () => {
             <aside className="w-60 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen">
               <div className="p-6 space-y-6">
                 
-                {/* 作品名（按首字母检索） */}
+                {/* 作品名称（按首字母检索） */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">作品名</h3>
+                  <h3 className="font-semibold text-gray-900 mb-4">作品名称</h3>
                   <div className="space-y-2">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
