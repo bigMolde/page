@@ -173,3 +173,206 @@ const ProductList: React.FC = () => {
 
         {/* 排序区域 */}
         <div className="flex items-center gap-6 mb-6 text-sm">
+          {/* 结果计数 */}
+          <span className="text-gray-600">
+            {filteredProducts.length} 件商品
+          </span>
+
+          {/* 排序按钮 */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => setSortBy('newest')}
+              className={`px-3 py-1 rounded text-xs ${
+                sortBy === 'newest' ? 'bg-pink-100 text-pink-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              最新
+            </button>
+            <button
+              onClick={() => setSortBy('price-low')}
+              className={`px-3 py-1 rounded text-xs ${
+                sortBy === 'price-low' ? 'bg-pink-100 text-pink-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              价格低到高
+            </button>
+            <button
+              onClick={() => setSortBy('price-high')}
+              className={`px-3 py-1 rounded text-xs ${
+                sortBy === 'price-high' ? 'bg-pink-100 text-pink-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              价格高到低
+            </button>
+          </div>
+
+          {/* 视图切换 */}
+          <div className="flex gap-1 ml-auto">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded ${
+                viewMode === 'grid' ? 'bg-red-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <Grid size={16} />
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded ${
+                viewMode === 'list' ? 'bg-red-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <List size={16} />
+            </button>
+          </div>
+        </div>
+
+        {/* 主要内容区域 */}
+        <div className="flex gap-8">
+          {/* 侧边栏过滤器 */}
+          {showFilters && (
+            <div className="w-64 flex-shrink-0">
+              <div className="bg-white rounded-lg shadow-sm border p-4">
+                {/* 分类过滤 */}
+                <div className="mb-6">
+                  <h3 className="font-semibold text-gray-900 mb-3">商品分类</h3>
+                  <div className="space-y-2">
+                    {categoryData.map(cat => (
+                      <div key={cat.title}>
+                        <button
+                          onClick={() => toggleSection(cat.title)}
+                          className={`flex items-center justify-between w-full text-left text-sm py-1 ${
+                            isCategoryTitleHighlighted(cat.title) ? 'text-red-600 font-medium' : 'text-gray-700'
+                          }`}
+                        >
+                          {cat.title}
+                          {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
+                        </button>
+                        {expandedSections[cat.title] && (
+                          <div className="ml-4 mt-1 space-y-1">
+                            {cat.items.map(item => (
+                              <label key={item} className="flex items-center text-xs">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedCategories.includes(item)}
+                                  onChange={() => toggleCategory(item)}
+                                  className="mr-2 text-red-600 focus:ring-red-500"
+                                />
+                                <span className={selectedCategories.includes(item) ? 'text-red-600' : 'text-gray-600'}>
+                                  {item}
+                                </span>
+                              </label>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 作品过滤 */}
+                <div className="mb-6">
+                  <h3 className="font-semibold text-gray-900 mb-3">作品</h3>
+                  <div className="space-y-2">
+                    {Object.keys(worksByKana).sort().map(kana => (
+                      <div key={kana}>
+                        <button
+                          onClick={() => toggleKanaRow(kana)}
+                          className={`flex items-center justify-between w-full text-left text-sm py-1 ${
+                            isKanaTitleHighlighted(kana) ? 'text-red-600 font-medium' : 'text-gray-700'
+                          }`}
+                        >
+                          {kana}
+                          {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
+                        </button>
+                        {expandedKanaRows[kana] && (
+                          <div className="ml-4 mt-1 space-y-1">
+                            {worksByKana[kana].map(work => (
+                              <label key={work} className="flex items-center text-xs">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedWorks.includes(work)}
+                                  onChange={() => toggleWork(work)}
+                                  className="mr-2 text-red-600 focus:ring-red-500"
+                                />
+                                <span className={selectedWorks.includes(work) ? 'text-red-600' : 'text-gray-600'}>
+                                  {work}
+                                </span>
+                              </label>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 库存过滤 */}
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-3">库存状态</h3>
+                  <div className="space-y-2">
+                    <label className="flex items-center text-sm">
+                      <input
+                        type="radio"
+                        name="stock"
+                        checked={stockFilter === 'all'}
+                        onChange={() => setStockFilter('all')}
+                        className="mr-2 text-red-600 focus:ring-red-500"
+                      />
+                      全部商品
+                    </label>
+                    <label className="flex items-center text-sm">
+                      <input
+                        type="radio"
+                        name="stock"
+                        checked={stockFilter === 'inStock'}
+                        onChange={() => setStockFilter('inStock')}
+                        className="mr-2 text-red-600 focus:ring-red-500"
+                      />
+                      仅现货
+                    </label>
+                    <label className="flex items-center text-sm">
+                      <input
+                        type="radio"
+                        name="stock"
+                        checked={stockFilter === 'includeOutOfStock'}
+                        onChange={() => setStockFilter('includeOutOfStock')}
+                        className="mr-2 text-red-600 focus:ring-red-500"
+                      />
+                      包含缺货
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 商品列表 */}
+          <div className="flex-1">
+            {filteredProducts.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-500">没有找到符合条件的商品</p>
+              </div>
+            ) : (
+              <div className={
+                viewMode === 'grid' 
+                  ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
+                  : 'space-y-4'
+              }>
+                {filteredProducts.map(product => (
+                  <ProductCard 
+                    key={product.id} 
+                    product={product} 
+                    viewMode={viewMode}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductList;
