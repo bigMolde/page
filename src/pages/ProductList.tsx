@@ -579,7 +579,7 @@ const ProductList: React.FC = () => {
                                   backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
-                                  paddingLeft: '36px',
+                                  paddingLeft: '66px',
                                   paddingRight: '16px'
                                 }}
                               >
