@@ -206,7 +206,7 @@ const Categories: React.FC = () => {
                 to="/new"
                 className="px-8 py-3 rounded-lg font-semibold transition"
                 style={{
-                  border: '2px solid #dc2626', // pink-500
+                  border: '2px solid #dc2626', 
                   color: "white", // pink-600
                   backgroundColor: 'transparent'
                 }}
