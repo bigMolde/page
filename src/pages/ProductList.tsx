@@ -404,31 +404,31 @@ const ProductList: React.FC = () => {
         </div>
 
         <div className="flex gap-6">
-          {/* 左侧过滤栏 */}
+          {/* 左侧过滤栏 - 调整宽度为280px */}
           {showFilters && (
-            <aside className="w-60 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen">
+            <aside className="w-70 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen" style={{ width: '280px' }}>
               <div className="p-6 space-y-6">
                 
-                {/* 作品名称（按首字母检索） */}
+                {/* 作品名称（按首字母检索） - 调整字体大小 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">作品名称</h3>
-                  <div className="space-y-2">
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">作品名称</h3>
+                  <div className="space-y-1">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
                         <button
                           onClick={() => toggleKanaRow(kana)}
-                          className="w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded"
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded"
                         >
-                          <span className="text-sm font-medium">{kana}</span>
-                          {expandedKanaRows[kana] ? <Minus size={16} /> : <Plus size={16} />}
+                          <span className="text-xs font-medium text-left">{kana}</span>
+                          {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedKanaRows[kana] && worksInKana.length > 0 && (
-                          <div className="ml-4 mt-2 space-y-1">
+                          <div className="ml-3 mt-1 space-y-0.5">
                             {worksInKana.map(work => (
                               <a
                                 key={work.id}
                                 href={`/r/${work.name}`}
-                                className="block text-sm text-blue-600 hover:text-blue-800 py-1"
+                                className="block text-xs text-blue-600 hover:text-blue-800 py-0.5 text-left"
                               >
                                 {work.name}
                               </a>
@@ -440,26 +440,26 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 */}
+                {/* 分类过滤 - 调整字体大小 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">类别</h3>
-                  <div className="space-y-2">
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">类别</h3>
+                  <div className="space-y-1">
                     {categoryData.map((cat) => (
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded"
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded"
                         >
-                          <span className="text-sm font-medium">{cat.title}</span>
-                          {expandedSections[cat.title] ? <Minus size={16} /> : <Plus size={16} />}
+                          <span className="text-xs font-medium text-left">{cat.title}</span>
+                          {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
-                          <div className="ml-4 mt-2 space-y-1">
+                          <div className="ml-3 mt-1 space-y-0.5">
                             {cat.items.map((item, index) => (
                               <a
                                 key={index}
                                 href={`/r/${encodeURIComponent(item)}`}
-                                className="block text-sm text-blue-600 hover:text-blue-800 py-1"
+                                className="block text-xs text-blue-600 hover:text-blue-800 py-0.5 text-left"
                               >
                                 {item}
                               </a>
@@ -473,16 +473,16 @@ const ProductList: React.FC = () => {
 
                 {/* 库存状态 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t">库存</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 rounded-t text-sm">库存</h3>
                   <div className="border border-t-0 rounded-b p-3">
                     <button
                       onClick={() => setHasStock(!hasStock)}
-                      className={`w-full flex items-center justify-between py-2 px-3 text-left hover:bg-gray-50 rounded ${
+                      className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
                         hasStock ? 'bg-red-50 text-red-600' : ''
                       }`}
                     >
-                      <span className="text-sm font-medium">有库存</span>
-                      {hasStock ? <Minus size={16} /> : <Plus size={16} />}
+                      <span className="text-xs font-medium text-left">有库存</span>
+                      {hasStock ? <Minus size={14} /> : <Plus size={14} />}
                     </button>
                   </div>
                 </div>
