@@ -490,18 +490,22 @@ const ProductList: React.FC = () => {
             <aside className="w-70 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen" style={{ width: '280px' }}>
               <div className="p-6 space-y-6">
                 
-                {/* 作品名称（按首字母检索） - 应用与类别相同的样式 */}
+                {/* 作品名称（按首字母检索） - 统一背景色为#F6DFDE，调整尺寸对齐 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">作品名称</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-4 py-3 text-sm">作品名称</h3>
                   <div className="space-y-1">
                     {Object.entries(worksByKana).map(([kana, worksInKana]) => (
                       <div key={kana}>
                         <button
                           onClick={() => toggleKanaRow(kana)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
+                          className="w-full flex items-center justify-between text-left hover:bg-gray-50"
                           style={{
-                            backgroundColor: isKanaTitleHighlighted(kana) ? '#E33D3D' : 'transparent',
-                            borderRadius: '0px'
+                            backgroundColor: isKanaTitleHighlighted(kana) ? '#F6DFDE' : 'transparent',
+                            borderRadius: '0px',
+                            paddingTop: '12px',
+                            paddingBottom: '12px',
+                            paddingLeft: '16px',
+                            paddingRight: '16px'
                           }}
                         >
                           <span className="text-xs font-medium text-left text-black">{kana}</span>
@@ -514,11 +518,11 @@ const ProductList: React.FC = () => {
                                 key={work}
                                 className="flex items-center cursor-pointer"
                                 style={{
-                                  backgroundColor: selectedWorks.includes(work) ? '#E33D3D' : 'transparent',
-                                  paddingTop: '8px',
-                                  paddingBottom: '8px',
-                                  paddingLeft: '12px',
-                                  paddingRight: '12px'
+                                  backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
+                                  paddingTop: '12px',
+                                  paddingBottom: '12px',
+                                  paddingLeft: '16px',
+                                  paddingRight: '16px'
                                 }}
                               >
                                 <input
@@ -529,7 +533,7 @@ const ProductList: React.FC = () => {
                                   style={{
                                     width: '12px',
                                     height: '12px',
-                                    accentColor: '#E33D3D'
+                                    accentColor: '#F6DFDE'
                                   }}
                                 />
                                 <span className="text-xs text-black text-left">
@@ -544,18 +548,22 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 分类过滤 - 完全删除倒角 */}
+                {/* 分类过滤 - 统一背景色为#F6DFDE，调整尺寸对齐 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">类别</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-4 py-3 text-sm">类别</h3>
                   <div className="space-y-1">
                     {categoryData.map((cat) => (
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50"
+                          className="w-full flex items-center justify-between text-left hover:bg-gray-50"
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent',
-                            borderRadius: '0px'
+                            borderRadius: '0px',
+                            paddingTop: '12px',
+                            paddingBottom: '12px',
+                            paddingLeft: '16px',
+                            paddingRight: '16px'
                           }}
                         >
                           <span className="text-xs font-medium text-left text-black">{cat.title}</span>
@@ -569,10 +577,10 @@ const ProductList: React.FC = () => {
                                 className="flex items-center cursor-pointer"
                                 style={{
                                   backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
-                                  paddingTop: '8px',
-                                  paddingBottom: '8px',
-                                  paddingLeft: '12px',
-                                  paddingRight: '12px'
+                                  paddingTop: '12px',
+                                  paddingBottom: '12px',
+                                  paddingLeft: '16px',
+                                  paddingRight: '16px'
                                 }}
                               >
                                 <input
@@ -600,7 +608,7 @@ const ProductList: React.FC = () => {
 
                 {/* 库存状态 - 简化为两个选择 */}
                 <div>
-                  <h3 className="font-semibold text-white bg-red-600 px-3 py-2 text-sm">库存</h3>
+                  <h3 className="font-semibold text-white bg-red-600 px-4 py-3 text-sm">库存</h3>
                   <div className="border border-t-0 p-3 space-y-2">
                     <button
                       onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
