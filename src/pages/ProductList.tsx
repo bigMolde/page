@@ -502,7 +502,15 @@ const ProductList: React.FC = () => {
                             {worksInKana.map(work => (
                               <label
                                 key={work}
-                                className="flex items-center py-1 px-2 hover:bg-gray-50 rounded cursor-pointer"
+                                className="flex items-center cursor-pointer"
+                                style={{
+                                  backgroundColor: selectedWorks.includes(work) ? '#E33D3D' : 'transparent',
+                                  paddingTop: '8px',
+                                  paddingBottom: '8px',
+                                  paddingLeft: '12px',
+                                  paddingRight: '12px',
+                                  borderRadius: '4px'
+                                }}
                               >
                                 <input
                                   type="checkbox"
@@ -515,7 +523,7 @@ const ProductList: React.FC = () => {
                                     accentColor: '#E33D3D'
                                   }}
                                 />
-                                <span className="text-xs text-gray-700 text-left">
+                                <span className="text-xs text-black text-left">
                                   {work}
                                 </span>
                               </label>
@@ -535,24 +543,27 @@ const ProductList: React.FC = () => {
                       <div key={cat.title}>
                         <button
                           onClick={() => toggleSection(cat.title)}
-                          className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
-                            isCategoryTitleHighlighted(cat.title) ? 'text-white' : ''
-                          }`}
+                          className="w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded"
                           style={{
-                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent'
+                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#E33D3D' : 'transparent'
                           }}
                         >
-                          <span className="text-xs font-medium text-left">{cat.title}</span>
+                          <span className="text-xs font-medium text-left text-black">{cat.title}</span>
                           {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
                         </button>
                         {expandedSections[cat.title] && (
-                          <div className="ml-3 mt-1 space-y-2">
+                          <div className="ml-3 mt-1 space-y-1">
                             {cat.items.map((item, index) => (
                               <label
                                 key={index}
-                                className="flex items-center py-1 px-2 hover:bg-gray-50 rounded cursor-pointer"
+                                className="flex items-center cursor-pointer"
                                 style={{
-                                  backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent'
+                                  backgroundColor: selectedCategories.includes(item) ? '#E33D3D' : 'transparent',
+                                  paddingTop: '8px',
+                                  paddingBottom: '8px',
+                                  paddingLeft: '12px',
+                                  paddingRight: '12px',
+                                  borderRadius: '4px'
                                 }}
                               >
                                 <input
@@ -566,12 +577,7 @@ const ProductList: React.FC = () => {
                                     accentColor: '#E33D3D'
                                   }}
                                 />
-                                <span 
-                                  className="text-xs text-left"
-                                  style={{
-                                    color: selectedCategories.includes(item) ? 'white' : '#374151'
-                                  }}
-                                >
+                                <span className="text-xs text-left text-black">
                                   {item}
                                 </span>
                               </label>
