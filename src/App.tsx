@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
+import Categories from './pages/Categories';
 import ProductList from './pages/ProductList';
 import ProductDetail from './pages/ProductDetail';
 import Search from './pages/Search';
@@ -18,7 +19,7 @@ function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/categories" element={<ProductList />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/r/:category" element={<ProductList />} />
             <Route path="/r/:series" element={<ProductList />} />
             <Route path="/search" element={<Search />} />

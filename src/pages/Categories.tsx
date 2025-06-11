@@ -1,67 +1,184 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { categories } from '../data/products';
 
 const Categories: React.FC = () => {
+  // 分类数据结构
+  const categoryData = [
+    {
+      title: '手办/模型',
+      items: [
+        '所有手办/模型',
+        'PVC手办',
+        '可动手办',
+        '景品手办',
+        '粘土人',
+        '模型套件',
+        '迷你手办',
+        '限定手办',
+        '预约手办'
+      ]
+    },
+    {
+      title: '服装/配饰',
+      items: [
+        '所有服装/配饰',
+        'T恤',
+        '连帽衫',
+        '外套',
+        '帽子',
+        '包包',
+        '钱包',
+        '手表',
+        '首饰'
+      ]
+    },
+    {
+      title: '文具/杂货',
+      items: [
+        '所有文具/杂货',
+        '笔记本',
+        '文件夹',
+        '笔类',
+        '贴纸',
+        '徽章',
+        '钥匙扣',
+        '杯子',
+        '餐具'
+      ]
+    },
+    {
+      title: '游戏/玩具',
+      items: [
+        '所有游戏/玩具',
+        '卡牌游戏',
+        '桌游',
+        '拼图',
+        '毛绒玩具',
+        '积木',
+        '电子游戏',
+        '收藏卡',
+        '游戏周边'
+      ]
+    },
+    {
+      title: '漫画/书籍',
+      items: [
+        '所有漫画/书籍',
+        '单行本',
+        '画集',
+        '设定集',
+        '小说',
+        '攻略本',
+        '杂志',
+        '限定版',
+        '签名版'
+      ]
+    },
+    {
+      title: '数码/电子',
+      items: [
+        '所有数码/电子',
+        '手机壳',
+        '充电器',
+        '耳机',
+        '音响',
+        'USB设备',
+        '电脑配件',
+        '游戏机',
+        '智能设备'
+      ]
+    },
+    {
+      title: '家居/生活',
+      items: [
+        '所有家居/生活',
+        '抱枕',
+        '毛毯',
+        '床单',
+        '装饰品',
+        '收纳盒',
+        '台灯',
+        '挂画',
+        '生活用品'
+      ]
+    },
+    {
+      title: '限定/特别',
+      items: [
+        '所有限定/特别',
+        '会场限定',
+        '网店限定',
+        '预约限定',
+        '抽选商品',
+        '纪念商品',
+        '合作商品',
+        '特典商品',
+        '其他限定'
+      ]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">商品分类</h1>
-          <p className="text-gray-600">选择您感兴趣的商品分类</p>
+        {/* 页面标题 */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            商品类别一览
+          </h1>
+          <p className="text-gray-600 text-lg">
+            从您喜欢的分类中寻找商品
+          </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-          {categories.map((category) => (
-            <Link
-              key={category.id}
-              to={`/r/${category.slug}`}
-              className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-            >
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="font-semibold text-gray-900 group-hover:text-red-600 transition-colors">
-                  {category.name}
-                </h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  {category.productCount} 件商品
-                </p>
-              </div>
-            </Link>
+        {/* 分类网格 */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          {categoryData.map((category, index) => (
+            <article key={index} className="flex flex-col bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+              {/* 卡片标题 */}
+              <header className="bg-rose-100 h-11 flex items-center px-4 font-semibold text-gray-800 rounded-t-lg">
+                {category.title}
+              </header>
+
+              {/* 分类列表 */}
+              <ul className="flex-1 mt-4 mb-4 px-4 space-y-2 text-sm text-gray-800">
+                {category.items.map((item, itemIndex) => (
+                  <li key={itemIndex}>
+                    <Link
+                      to={`/r/${encodeURIComponent(item)}`}
+                      className="block py-1 hover:text-red-600 hover:bg-red-50 hover:px-2 hover:-mx-2 rounded transition-all duration-200"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
-        </div>
+        </section>
 
-        {/* Popular Works Section */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">热门作品</h2>
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {[
-                { name: 'ONE PIECE', slug: 'ONE PIECE' },
-                { name: '鬼灭之刃', slug: '鬼灭之刃' },
-                { name: '咒术回战', slug: '咒术回战' },
-                { name: 'NARUTO', slug: 'NARUTO' },
-                { name: '龙珠', slug: '龙珠' },
-                { name: '我的英雄学院', slug: '我的英雄学院' }
-              ].map((work) => (
-                <Link
-                  key={work.slug}
-                  to={`/r/${work.slug}`}
-                  className="text-center p-4 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors"
-                >
-                  <div className="text-sm font-medium text-gray-900 hover:text-red-600">
-                    {work.name}
-                  </div>
-                </Link>
-              ))}
+        {/* 底部说明 */}
+        <div className="mt-16 text-center">
+          <div className="bg-white rounded-lg shadow-sm p-8">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              找不到您想要的商品？
+            </h2>
+            <p className="text-gray-600 mb-6">
+              您可以使用搜索功能或浏览新品列表来发现更多商品
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/search"
+                className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+              >
+                搜索商品
+              </Link>
+              <Link
+                to="/new"
+                className="border border-red-600 text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-red-50 transition-colors"
+              >
+                查看新品
+              </Link>
             </div>
           </div>
         </div>
