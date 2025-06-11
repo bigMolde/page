@@ -142,7 +142,7 @@ const Header: React.FC = () => {
                 className="mobile-menu-link"
                 onClick={() => setIsMenuOpen(false)}
               >
-                新品列表
+                产品列表
               </Link>
             </div>
           </div>
