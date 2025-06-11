@@ -504,7 +504,7 @@ const ProductList: React.FC = () => {
                             borderRadius: '0px',
                             paddingTop: '12px',
                             paddingBottom: '12px',
-                            paddingLeft: '20px',
+                            paddingLeft: '16px',
                             paddingRight: '16px'
                           }}
                         >
@@ -518,10 +518,10 @@ const ProductList: React.FC = () => {
                                 key={work}
                                 className="flex items-center cursor-pointer"
                                 style={{
-                                  backgroundColor: selectedWorks.includes(work) ? '#FFFFFF' : 'transparent',
+                                  backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
-                                  paddingLeft: '29px',
+                                  paddingLeft: '16px',
                                   paddingRight: '16px'
                                 }}
                               >
@@ -579,7 +579,7 @@ const ProductList: React.FC = () => {
                                   backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
                                   paddingTop: '12px',
                                   paddingBottom: '12px',
-                                  paddingLeft: '16px',
+                                  paddingLeft: '36px',
                                   paddingRight: '16px'
                                 }}
                               >
