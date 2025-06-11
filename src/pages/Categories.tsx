@@ -194,18 +194,7 @@ const Categories: React.FC = () => {
               </Link>
               <Link
                 to="/new"
-                className="px-8 py-3 rounded-lg font-semibold transition"
-                style={{
-                  border: '2px solid #dc2626',
-                  color: '#000',              // ← 文字改黑色
-                  backgroundColor: 'transparent',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#fdf2f8';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
+                className="border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition"
               >
                 新品列表
               </Link>
