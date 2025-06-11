@@ -118,7 +118,7 @@ const Search: React.FC = () => {
                     没有找到相关商品
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    尝试使用其他关键词搜索，或浏览我们的商品分类
+                    尝试使用其他按作品搜索，或浏览我们的商品分类
                   </p>
                   <button
                     onClick={clearSearch}
