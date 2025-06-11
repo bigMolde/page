@@ -560,9 +560,9 @@ const ProductList: React.FC = () => {
                           style={{
                             backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent',
                             borderRadius: '0px',
-                            paddingTop: '12px',
+                            paddingTop: '10px',
                             paddingBottom: '12px',
-                            paddingLeft: '46px',
+                            paddingLeft: '16px',
                             paddingRight: '16px'
                           }}
                         >
