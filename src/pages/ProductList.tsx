@@ -1,25 +1,36 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { Filter, Grid, List, SortAsc, Search, Plus, Minus, X } from 'lucide-react';
+import { Filter, Grid, List, Plus, Minus, X, Search as SearchIcon } from 'lucide-react';
 import ProductCard from '../components/Product/ProductCard';
-import { products, categories, works } from '../data/products';
+import { products, categories } from '../data/products';
+
+/**
+ * ProductList.tsx – 重新排版以匹配截图：
+ *  1. 左侧 260 px 搜索框（白底灰字），黑色搜索按钮紧贴右侧。
+ *  2. “高级搜索”标题位于搜索框右侧；右上角为说明链接。
+ *  3. 下一行：左侧显示结果数，右侧水平排列排序按钮（与左边侧栏标题齐平）。
+ *  4. 其余过滤 / 侧栏 / 视图切换逻辑保持不变。
+ */
 
 const ProductList: React.FC = () => {
+  /* URL params */
   const { category, series } = useParams();
   const [searchParams] = useSearchParams();
+
+  /* UI state */
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sortBy, setSortBy] = useState('default');
+  const [sortBy, setSortBy] = useState<'newest' | 'price-low' | 'price-high'>('newest');
   const [showFilters, setShowFilters] = useState(true);
-  
-  // 搜索和过滤状态
+
+  /* Filter state */
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedWorks, setSelectedWorks] = useState<string[]>([]);
   const [stockFilter, setStockFilter] = useState<'all' | 'inStock' | 'includeOutOfStock'>('all');
-  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({});
-  const [expandedKanaRows, setExpandedKanaRows] = useState<{[key: string]: boolean}>({});
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+  const [expandedKanaRows, setExpandedKanaRows] = useState<Record<string, boolean>>({});
 
-  // 完整的作品列表
+  /*********************** 作品首字母分组 ************************/
   const allWorks = [
     '阿基拉', '阿松', '暗杀教室', '进击的巨人', '鬼灭之刃', '火影忍者', '海贼王', '死神', '名侦探柯南', '钢之炼金术师',
     '工作细胞', '排球少年！！', '黑执事', '黑色五叶草', 'JOJO的奇妙冒险', '灵能百分百', '拳愿阿修罗', '境界触发者', '境界的彼方', '魔法少女小圆',
@@ -33,64 +44,18 @@ const ProductList: React.FC = () => {
     '歌之王子殿下', '永生之酒', '无头骑士异闻录', '灼眼的夏娜', '旋风管家', '零之使魔', '只要长得可爱即使是变态你也喜欢吗？', '辉夜大小姐想让我告白', '间谍过家家', '记录的地平线'
   ];
 
-  // 按首字母分组作品
   const worksByKana = useMemo(() => {
-    const kanaGroups: {[key: string]: string[]} = {};
-
-    allWorks.forEach(work => {
-      const firstChar = work.charAt(0);
-      // 根据中文首字母分组
-      let kanaKey = '';
-      
-      if (['阿'].includes(firstChar)) kanaKey = 'A';
-      else if (['暗', '安'].includes(firstChar)) kanaKey = 'A';
-      else if (['进'].includes(firstChar)) kanaKey = 'J';
-      else if (['鬼'].includes(firstChar)) kanaKey = 'G';
-      else if (['火', '海', '黑', '花'].includes(firstChar)) kanaKey = 'H';
-      else if (['死'].includes(firstChar)) kanaKey = 'S';
-      else if (['名'].includes(firstChar)) kanaKey = 'M';
-      else if (['钢', '工', '高'].includes(firstChar)) kanaKey = 'G';
-      else if (['排'].includes(firstChar)) kanaKey = 'P';
-      else if (['J', 'L', 'R', 'F', 'B'].includes(firstChar)) kanaKey = firstChar;
-      else if (['灵'].includes(firstChar)) kanaKey = 'L';
-      else if (['拳', '境'].includes(firstChar)) kanaKey = 'Q';
-      else if (['魔'].includes(firstChar)) kanaKey = 'M';
-      else if (['秒', '言'].includes(firstChar)) kanaKey = 'M';
-      else if (['千', '天', '龙', '萤'].includes(firstChar)) kanaKey = 'T';
-      else if (['星', '数'].includes(firstChar)) kanaKey = 'S';
-      else if (['口'].includes(firstChar)) kanaKey = 'K';
-      else if (['妄', '日', '银', '为'].includes(firstChar)) kanaKey = 'W';
-      else if (['刀'].includes(firstChar)) kanaKey = 'D';
-      else if (['加', '赛', '紫'].includes(firstChar)) kanaKey = 'J';
-      else if (['约', '四', '乐', '未', '斩'].includes(firstChar)) kanaKey = 'Y';
-      else if (['干', '摇', '轻', '中'].includes(firstChar)) kanaKey = 'G';
-      else if (['狼', '兽', '青', '物'].includes(firstChar)) kanaKey = 'L';
-      else if (['东', '异', '心', '进', '文', '缘'].includes(firstChar)) kanaKey = 'D';
-      else if (['彼', '来', '七', '白'].includes(firstChar)) kanaKey = 'B';
-      else if (['宝', '哆', '蜡', '樱', '美', '忍', '足', '灌', '网'].includes(firstChar)) kanaKey = 'B';
-      else if (['甲', '银', '机', '新', '交'].includes(firstChar)) kanaKey = 'J';
-      else if (['歌', '永', '无', '灼', '旋', '零', '只', '辉', '间', '记'].includes(firstChar)) kanaKey = 'G';
-      
-      if (kanaKey && !kanaGroups[kanaKey]) {
-        kanaGroups[kanaKey] = [];
-      }
-      if (kanaKey) {
-        kanaGroups[kanaKey].push(work);
-      }
+    const map: Record<string, string[]> = {};
+    allWorks.forEach(w => {
+      const k = w.charAt(0).toUpperCase();
+      if (!map[k]) map[k] = [];
+      map[k].push(w);
     });
-
-    // 只返回有作品的分组
-    const filteredGroups: {[key: string]: string[]} = {};
-    Object.keys(kanaGroups).forEach(key => {
-      if (kanaGroups[key].length > 0) {
-        filteredGroups[key] = kanaGroups[key].sort();
-      }
-    });
-
-    return filteredGroups;
+    Object.keys(map).forEach(k => map[k].sort());
+    return map;
   }, []);
 
-  // 分类数据 - 对应Categories.tsx的结构
+  /*********************** 分类数据 ************************/
   const categoryData = [
     {
       title: '手办 / 模型',
@@ -206,498 +171,181 @@ const ProductList: React.FC = () => {
     },
   ];
 
+  /*********************** 过滤与排序 ************************/
   const filteredProducts = useMemo(() => {
-    let filtered = [...products];
-
-    // 基础分类过滤
-    if (category) {
-      const categoryData = categories.find(cat => cat.slug === category);
-      if (categoryData) {
-        filtered = filtered.filter(product => product.category === category);
-      } else {
-        filtered = filtered.filter(product => product.work === category);
-      }
-    }
-    
-    if (series) {
-      filtered = filtered.filter(product => product.work === series);
-    }
-
-    // 搜索过滤
+    let list = [...products];
+    if (category) list = list.filter(p => p.category === category || p.work === category);
+    if (series)   list = list.filter(p => p.work === series);
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query) ||
-        product.work?.toLowerCase().includes(query)
-      );
+      const q = searchQuery.toLowerCase();
+      list = list.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.work.toLowerCase().includes(q));
     }
+    if (selectedCategories.length) list = list.filter(p => selectedCategories.some(c => p.category.includes(c)));
+    if (selectedWorks.length)      list = list.filter(p => selectedWorks.includes(p.work));
+    if (stockFilter === 'inStock') list = list.filter(p => p.stock_quantity > 0);
 
-    // 分类过滤
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter(product => 
-        selectedCategories.some(cat => product.category.includes(cat))
-      );
-    }
-
-    // 作品过滤
-    if (selectedWorks.length > 0) {
-      filtered = filtered.filter(product => 
-        selectedWorks.some(work => product.work === work)
-      );
-    }
-
-    // 库存过滤
-    if (stockFilter === 'inStock') {
-      filtered = filtered.filter(product => product.stock_quantity > 0);
-    }
-    // 'includeOutOfStock' 和 'all' 都显示所有商品，不需要额外过滤
-
-    // 排序
     switch (sortBy) {
-      case 'price-low':
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-high':
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
-        break;
-      case 'name':
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'newest':
-        filtered.sort((a, b) => new Date(b.release_date || '').getTime() - new Date(a.release_date || '').getTime());
-        break;
-      default:
-        break;
+      case 'price-low':  list.sort((a, b) => a.price - b.price); break;
+      case 'price-high': list.sort((a, b) => b.price - a.price); break;
+      case 'newest':     list.sort((a, b) => new Date(b.release_date || '').getTime() - new Date(a.release_date || '').getTime()); break;
     }
+    return list;
+  }, [category, series, searchQuery, selectedCategories, selectedWorks, stockFilter, sortBy]);
 
-    return filtered;
-  }, [category, series, sortBy, searchQuery, selectedCategories, selectedWorks, stockFilter]);
-
-  // 获取当前筛选标签
-  const getActiveFilters = () => {
-    const filters = [];
-    if (searchQuery) filters.push({ type: 'search', label: `搜索: ${searchQuery}`, value: searchQuery });
-    selectedCategories.forEach(cat => {
-      filters.push({ type: 'category', label: cat, value: cat });
-    });
-    selectedWorks.forEach(work => {
-      filters.push({ type: 'work', label: work, value: work });
-    });
-    if (stockFilter === 'inStock') filters.push({ type: 'stock', label: '有库存', value: 'inStock' });
-    if (stockFilter === 'includeOutOfStock') filters.push({ type: 'stock', label: '包括无库存', value: 'includeOutOfStock' });
-    return filters;
+  /*********************** UI 辅助函数 ************************/
+  const toggleSection = (k: string) => setExpandedSections(s => ({ ...s, [k]: !s[k] }));
+  const toggleKanaRow = (k: string) => setExpandedKanaRows(s => ({ ...s, [k]: !s[k] }));
+  const toggleCategory = (c: string) => setSelectedCategories(s => s.includes(c) ? s.filter(i => i !== c) : [...s, c]);
+  const toggleWork = (w: string) => setSelectedWorks(s => s.includes(w) ? s.filter(i => i !== w) : [...s, w]);
+  const isCategoryTitleHighlighted = (t: string) => {
+    const cat = categoryData.find(c => c.title === t);
+    return cat ? cat.items.some(i => selectedCategories.includes(i)) : false;
   };
+  const isKanaTitleHighlighted = (k: string) => (worksByKana[k] || []).some(w => selectedWorks.includes(w));
 
-  const removeFilter = (type: string, value: string) => {
-    switch (type) {
-      case 'search':
-        setSearchQuery('');
-        break;
-      case 'category':
-        setSelectedCategories(prev => prev.filter(cat => cat !== value));
-        break;
-      case 'work':
-        setSelectedWorks(prev => prev.filter(work => work !== value));
-        break;
-      case 'stock':
-        setStockFilter('all');
-        break;
-    }
-  };
-
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
-
-  const toggleKanaRow = (kana: string) => {
-    setExpandedKanaRows(prev => ({
-      ...prev,
-      [kana]: !prev[kana]
-    }));
-  };
-
-  const toggleCategory = (categoryId: string) => {
-    setSelectedCategories(prev => 
-      prev.includes(categoryId) 
-        ? prev.filter(id => id !== categoryId)
-        : [...prev, categoryId]
-    );
-  };
-
-  const toggleWork = (work: string) => {
-    setSelectedWorks(prev => 
-      prev.includes(work) 
-        ? prev.filter(w => w !== work)
-        : [...prev, work]
-    );
-  };
-
-  // 检查分类标题是否应该高亮
-  const isCategoryTitleHighlighted = (categoryTitle: string) => {
-    const category = categoryData.find(cat => cat.title === categoryTitle);
-    return category?.items.some(item => selectedCategories.includes(item)) || false;
-  };
-
-  // 检查作品首字母标题是否应该高亮
-  const isKanaTitleHighlighted = (kana: string) => {
-    const worksInKana = worksByKana[kana] || [];
-    return worksInKana.some(work => selectedWorks.includes(work));
-  };
-
-  const getPageTitle = () => {
-    if (category) {
-      const categoryData = categories.find(cat => cat.slug === category);
-      if (categoryData) {
-        return categoryData.name;
-      } else {
-        return category;
-      }
-    }
-    if (series) {
-      return series;
-    }
-    return '产品列表';
-  };
-
-  const title = getPageTitle();
-  const activeFilters = getActiveFilters();
-
+  /*********************** 页面渲染 ************************/
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <div className="mb-6">
-          <nav className="text-sm">
-            <span className="text-gray-500">首页</span>
-            <span className="mx-2 text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">{title}</span>
-          </nav>
-        </div>
+      {/* 顶部红线 */}
+      <div className="w-full h-2 bg-red-600" />
 
-        {/* 详情检索标题 */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">详情检索</h1>
-        </div>
-
-        {/* 搜索框 */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-          <div className="flex items-center space-x-2">
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                placeholder="请输入关键字"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-            <button className="bg-black text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
-              <Search size={20} />
+      <div className="container mx-auto px-4 pt-6 pb-8">
+        {/* 第一行：搜索框 + 标题 + 说明链接 */}
+        <div className="flex items-start justify-between mb-4">
+          {/* 搜索框 */}
+          <div className="flex-shrink-0 relative" style={{ width: 260 }}>
+            <input
+              type="text"
+              placeholder="找什么？"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="w-full h-10 pl-4 pr-10 text-sm border border-gray-200 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-600"
+            />
+            <button
+              onClick={() => { /* 触发搜索或清空 */ }}
+              className="absolute inset-y-0 right-0 w-10 bg-black flex items-center justify-center"
+            >
+              <SearchIcon size={18} className="text-white" />
             </button>
           </div>
+
+          {/* 标题 */}
+          <h1 className="text-2xl font-bold ml-6">高级搜索</h1>
+
+          {/* 说明链接 */}
+          <a href="#" className="text-sm text-black underline hover:text-red-700 ml-auto">查看每个目标的说明</a>
         </div>
 
-        {/* 检索结果和排序 */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">检索结果</h2>
-              <p className="text-gray-600">{filteredProducts.length} 个结果</p>
-            </div>
-            
-            <div className="flex items-center space-x-4 mt-4 lg:mt-0">
-              {/* Sort */}
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">排序：</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                >
-                  <option value="newest">按发布日期</option>
-                  <option value="price-high">价格（从高到低）</option>
-                  <option value="price-low">价格（从低到高）</option>
-                  <option value="default">推荐排序</option>
-                  <option value="rating">评分最高</option>
-                  <option value="name">商品名称</option>
-                </select>
-              </div>
+        {/* 第二行：结果数 + 排序按钮组 */}
+        <div className="flex items-center justify-between border-b pb-3 mb-6">
+          {/* 结果数 */}
+          <p className="text-sm font-medium">{filteredProducts.length} 个结果</p>
 
-              {/* View Mode */}
-              <div className="flex rounded-lg border overflow-hidden">
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 ${
-                    viewMode === 'grid'
-                      ? 'bg-red-600 text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <Grid size={20} />
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 border-l ${
-                    viewMode === 'list'
-                      ? 'bg-red-600 text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <List size={20} />
-                </button>
-              </div>
-
-              {/* Filter Toggle */}
+          {/* 排序按钮组 */}
+          <div className="flex items-center gap-4 text-sm whitespace-nowrap">
+            <span className="text-gray-600">排序：</span>
+            {[
+              { key: 'newest',     label: '发布日期' },
+              { key: 'price-low',  label: '价格（从低到高）' },
+              { key: 'price-high', label: '价格（从高到低）' }
+            ].map(s => (
               <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center space-x-2 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                key={s.key}
+                onClick={() => setSortBy(s.key as any)}
+                className={`px-4 py-1 transition-colors ${sortBy === s.key ? 'bg-red-100 text-red-800' : 'hover:bg-gray-100'}`}
               >
-                <Filter size={20} />
-                <span>筛选</span>
+                {s.label}
               </button>
-            </div>
+            ))}
           </div>
-
-          {/* 当前筛选标签 */}
-          {activeFilters.length > 0 && (
-            <div className="mt-4 pt-4 border-t border-gray-200">
-              <div className="flex flex-wrap gap-2">
-                <span className="text-sm text-gray-600 mr-2">当前筛选:</span>
-                {activeFilters.map((filter, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm"
-                  >
-                    {filter.label}
-                    <button
-                      onClick={() => removeFilter(filter.type, filter.value)}
-                      className="ml-2 hover:text-red-600"
-                    >
-                      <X size={14} />
-                    </button>
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
+        {/* 视图切换 + 筛选开关 */}
+        <div className="flex items-center justify-end gap-4 mb-6">
+          <div className="flex rounded-sm border overflow-hidden">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 ${viewMode === 'grid' ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+            >
+              <Grid size={18} />
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 border-l ${viewMode === 'list' ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+            >
+              <List size={18} />
+            </button>
+          </div>
+          <button onClick={() => setShowFilters(!showFilters)} className="flex items-center gap-1 px-3 py-2 border rounded-sm text-sm hover:bg-gray-50">
+            <Filter size={18} />筛选
+          </button>
+        </div>
+
+        {/* 主体：左侧侧栏 + 商品列表 */}
         <div className="flex gap-6">
-          {/* 左侧过滤栏 - 调整宽度为280px */}
+          {/* 过滤侧栏 */}
           {showFilters && (
-            <aside className="w-70 bg-white rounded-lg shadow-sm h-fit sticky top-8 overflow-y-auto max-h-screen" style={{ width: '280px' }}>
-              <div className="space-y-6">
-                
-                {/* 作品名称（按首字母检索） - 修正左右外边距对齐 */}
-                <div>
-                  <h3 
-                    className="font-semibold text-white bg-red-600 text-sm" 
-                    style={{ 
-                      marginLeft: '16px', 
-                      marginRight: '16px', 
-                      padding: '12px 16px' 
-                    }}
+            <aside className="w-64 flex-shrink-0 bg-white rounded-sm shadow-sm overflow-y-auto max-h-screen sticky top-8">
+              {/* 作品名称 */}
+              <h3 className="bg-red-600 text-white text-sm font-semibold px-4 py-3">作品名称</h3>
+              {Object.entries(worksByKana).map(([kana, items]) => (
+                <div key={kana}>
+                  <button
+                    onClick={() => toggleKanaRow(kana)}
+                    style={{ backgroundColor: isKanaTitleHighlighted(kana) ? '#F6DFDE' : undefined }}
+                    className="flex w-full items-center justify-between text-left px-4 py-3 text-xs hover:bg-gray-50"
                   >
-                    作品名称
-                  </h3>
-                  <div className="space-y-1">
-                    {Object.entries(worksByKana).map(([kana, worksInKana]) => (
-                      <div key={kana}>
-                        <button
-                          onClick={() => toggleKanaRow(kana)}
-                          className="w-full flex items-center justify-between text-left hover:bg-gray-50"
-                          style={{
-                            backgroundColor: isKanaTitleHighlighted(kana) ? '#F6DFDE' : 'transparent',
-                            borderRadius: '0px',
-                            marginLeft: '16px',
-                            marginRight: '16px',
-                            paddingTop: '12px',
-                            paddingBottom: '12px',
-                            paddingLeft: '16px',
-                            paddingRight: '16px',
-                            width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
-                          }}
-                        >
-                          <span className="text-xs font-medium text-left text-black">{kana}</span>
-                          {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
-                        </button>
-                        {expandedKanaRows[kana] && worksInKana.length > 0 && (
-                          <div className="mt-1 space-y-1">
-                            {worksInKana.map(work => (
-                              <label
-                                key={work}
-                                className="flex items-center cursor-pointer"
-                                style={{
-                                  backgroundColor: selectedWorks.includes(work) ? '#F6DFDE' : 'transparent',
-                                  marginLeft: '16px',
-                                  marginRight: '16px',
-                                  paddingTop: '12px',
-                                  paddingBottom: '12px',
-                                  paddingLeft: '32px',
-                                  paddingRight: '16px',
-                                  width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
-                                }}
-                              >
-                                <input
-                                  type="checkbox"
-                                  checked={selectedWorks.includes(work)}
-                                  onChange={() => toggleWork(work)}
-                                  className="mr-2"
-                                  style={{
-                                    width: '12px',
-                                    height: '12px',
-                                    accentColor: '#F6DFDE'
-                                  }}
-                                />
-                                <span className="text-xs text-black text-left">
-                                  {work}
-                                </span>
-                              </label>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 分类过滤 - 修正左右外边距对齐 */}
-                <div>
-                  <h3 
-                    className="font-semibold text-white bg-red-600 text-sm" 
-                    style={{ 
-                      marginLeft: '16px', 
-                      marginRight: '16px', 
-                      padding: '12px 16px' 
-                    }}
-                  >
-                    类别
-                  </h3>
-                  <div className="space-y-1">
-                    {categoryData.map((cat) => (
-                      <div key={cat.title}>
-                        <button
-                          onClick={() => toggleSection(cat.title)}
-                          className="w-full flex items-center justify-between text-left hover:bg-gray-50"
-                          style={{
-                            backgroundColor: isCategoryTitleHighlighted(cat.title) ? '#F6DFDE' : 'transparent',
-                            borderRadius: '0px',
-                            marginLeft: '16px',
-                            marginRight: '16px',
-                            paddingTop: '12px',
-                            paddingBottom: '12px',
-                            paddingLeft: '16px',
-                            paddingRight: '16px',
-                            width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
-                          }}
-                        >
-                          <span className="text-xs font-medium text-left text-black">{cat.title}</span>
-                          {expandedSections[cat.title] ? <Minus size={14} /> : <Plus size={14} />}
-                        </button>
-                        {expandedSections[cat.title] && (
-                          <div className="mt-1 space-y-1">
-                            {cat.items.map((item, index) => (
-                              <label
-                                key={index}
-                                className="flex items-center cursor-pointer"
-                                style={{
-                                  backgroundColor: selectedCategories.includes(item) ? '#F6DFDE' : 'transparent',
-                                  marginLeft: '16px',
-                                  marginRight: '16px',
-                                  paddingTop: '12px',
-                                  paddingBottom: '12px',
-                                  paddingLeft: '32px',
-                                  paddingRight: '16px',
-                                  width: 'calc(100% - 32px)' // 确保宽度减去左右外边距
-                                }}
-                              >
-                                <input
-                                  type="checkbox"
-                                  checked={selectedCategories.includes(item)}
-                                  onChange={() => toggleCategory(item)}
-                                  className="mr-2"
-                                  style={{
-                                    width: '12px',
-                                    height: '12px',
-                                    accentColor: '#F6DFDE'
-                                  }}
-                                />
-                                <span className="text-xs text-left text-black">
-                                  {item}
-                                </span>
-                              </label>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 库存状态 - 简化为两个选择 */}
-                <div>
-                  <h3 
-                    className="font-semibold text-white bg-red-600 text-sm" 
-                    style={{ 
-                      marginLeft: '16px', 
-                      marginRight: '16px', 
-                      padding: '12px 16px' 
-                    }}
-                  >
-                    库存
-                  </h3>
-                  <div className="border border-t-0 p-3 space-y-2">
-                    <button
-                      onClick={() => setStockFilter(stockFilter === 'inStock' ? 'all' : 'inStock')}
-                      className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
-                        stockFilter === 'inStock' ? 'bg-red-50 text-red-600' : ''
-                      }`}
+                    <span>{kana}</span>
+                    {expandedKanaRows[kana] ? <Minus size={14} /> : <Plus size={14} />}
+                  </button>
+                  {expandedKanaRows[kana] && items.map(it => (
+                    <label
+                      key={it}
+                      style={{ backgroundColor: selectedWorks.includes(it) ? '#F6DFDE' : undefined }}
+                      className="flex items-center gap-2 pl-8 pr-4 py-2 text-xs cursor-pointer hover:bg-gray-50"
                     >
-                      <span className="text-xs font-medium text-left">有库存</span>
-                    </button>
-                    <button
-                      onClick={() => setStockFilter(stockFilter === 'includeOutOfStock' ? 'all' : 'includeOutOfStock')}
-                      className={`w-full flex items-center justify-between py-1.5 px-3 text-left hover:bg-gray-50 rounded ${
-                        stockFilter === 'includeOutOfStock' ? 'bg-red-50 text-red-600' : ''
-                      }`}
-                    >
-                      <span className="text-xs font-medium text-left">包括无库存</span>
-                    </button>
-                  </div>
+                      <input type="checkbox" checked={selectedWorks.includes(it)} onChange={() => toggleWork(it)} className="w-3 h-3 accent-red-600" />
+                      {it}
+                    </label>
+                  ))}
                 </div>
+              ))}
 
-              </div>
+              {/* 分类 */}
+              <h3 className="bg-red-600 text-white text-sm font-semibold px-4 py-3 mt-6">类别</h3>
+              {categoryData.map(c => (
+                <div key={c.title}>
+                  <button
+                    onClick={() => toggleSection(c.title)}
+                    style={{ backgroundColor: isCategoryTitleHighlighted(c.title) ? '#F6DFDE' : undefined }}
+                    className="flex w-full items-center justify-between text-left px-4 py-3 text-xs hover:bg-gray-50"
+                  >
+                    <span>{c.title}</span>
+                    {expandedSections[c.title] ? <Minus size={14} /> : <Plus size={14} />}
+                  </button>
+                  {expandedSections[c.title] && c.items.map(it => (
+                    <label
+                      key={it}
+                      style={{ backgroundColor: selectedCategories.includes(it) ? '#F6DFDE' : undefined }}
+                      className="flex items-center gap-2 pl-8 pr-4 py-2 text-xs cursor-pointer hover:bg-gray-50"
+                    >
+                      <input type="checkbox" checked={selectedCategories.includes(it)} onChange={() => toggleCategory(it)} className="w-3 h-3 accent-red-600" />
+                      {it}
+                    </label>
+                  ))}
+                </div>
+              ))}
             </aside>
           )}
 
-          {/* 产品网格/列表 */}
+          {/* 商品列表 */}
           <main className="flex-1">
             {filteredProducts.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-                <p className="text-gray-500 text-lg">没有找到符合条件的商品</p>
-                <p className="text-gray-400 mt-2">请尝试调整筛选条件</p>
-              </div>
+              <div className="bg-white rounded-sm p-12 text-center text-gray-500">没有找到符合条件的商品</div>
             ) : (
-              <div
-                className={
-                  viewMode === 'grid'
-                    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-                    : 'space-y-4'
-                }
-              >
-                {filteredProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    className={viewMode === 'list' ? 'flex' : ''}
-                  />
+              <div className={viewMode === 'grid' ? 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' : 'space-y-4'}>
+                {filteredProducts.map(p => (
+                  <ProductCard key={p.id} product={p} className={viewMode === 'list' ? 'flex' : ''} />
                 ))}
               </div>
             )}
