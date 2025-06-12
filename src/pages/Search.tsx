@@ -30,12 +30,12 @@ const Search: React.FC = () => {
   const worksData = React.useMemo(() => {
     const tempMap: Record<string, string[]> = {};
 
-    allWorks.forEach(work => {
-      const initial = (pinyin(work.charAt(0), { pattern: 'first', toneType: 'none' }) || '#').toUpperCase();
-      const key = /^[A-Z]$/.test(initial) ? initial : '#';
-      if (!tempMap[key]) tempMap[key] = [];
-      tempMap[key].push(work);
-    });
+    // allWorks.forEach(work => {
+    //   const initial = (pinyin(work.charAt(0), { pattern: 'first', toneType: 'none' }) || '#').toUpperCase();
+    //   const key = /^[A-Z]$/.test(initial) ? initial : '#';
+    //   if (!tempMap[key]) tempMap[key] = [];
+    //   tempMap[key].push(work); 
+    // });
 
     // 对每组作品进行字典序排序
     Object.keys(tempMap).forEach(k => tempMap[k].sort());
